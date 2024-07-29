@@ -1,0 +1,79 @@
+/* Projects.css */
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin-right: 20px;
+}
+
+.search-bar {
+    width: 70%;
+}
+
+.filters-container {
+    width: 300px;
+    margin-right: 20px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.projects-list-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.projects-list {
+    width: 60%;
+}
+
+.project-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.project-item h2 {
+    margin: 0 0 10px 0;
+}
+
+.project-item p {
+    margin: 5px 0;
+}
+
+.budget {
+    font-weight: bold;
+}
+
+.skills {
+    font-style: italic;
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}

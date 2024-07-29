@@ -1,0 +1,97 @@
+/* src\components\Navbar\Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background-color: #333;
+    padding: 0 150px;
+    height: 60px;
+    color: white;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-item {
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+}
+
+.profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+}
+
+.profile-placeholder {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px;
+    width: 200px;
+    z-index: 1000;
+}
+
+.profile-dropdown.visible {
+    display: block;
+}
+
+.profile-dropdown p {
+    margin: 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 8px 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.profile-dropdown a:hover {
+    background-color: #f1f1f1;
+}
