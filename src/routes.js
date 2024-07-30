@@ -5,7 +5,7 @@ import Register from "./components/Auth/Register";
 import Profile from "./components/Dashboard/Profile";
 import Portfolios from "./components/Dashboard/Portfolios";
 import PublicProfile from "./components/Dashboard/PublicProfile";
-import MainPage from "./components/MainPage";
+import MainPage from "./pages/MainPage";
 import Navbar from "./components/Navbar/Navbar";
 import CreateProject from "./components/Projects/CreateProject"; // новый компонент
 import Projects from "./components/Projects/Projects"; // новый компонент
