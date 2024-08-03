@@ -1,0 +1,103 @@
+body {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #FFFFFF;
+    background-color: #000000;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 4835px;
+}
+
+.main-page-first-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 115vh;
+    position: relative;
+    top: -100px;
+    background-image: url(../../public/image\ 11.png);
+    background-size: cover;
+}
+
+.main-page-title {
+    font-size: 60px;
+    text-align: center;
+    font-weight: 400;
+    margin: 10px;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.main-page-subtitle {
+    font-size: 22px;
+    text-align: center;
+    font-weight: 400;
+    margin: 0;
+    padding: 0
+}
+
+.main-page-button-try {
+    width: Fixed (235px)px;
+    height: Fixed (60px)px;
+    padding: 15px 37px 15px 37px;
+    gap: 10px;
+    border-radius: 35px;
+    opacity: 0px;
+
+    background-color: #8557F7;
+
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 22.99px;
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-top: 40px;
+}
+
+.main-page-second-section-info {
+    width: 100%;
+    height: 120vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-page-second-section-title {
+    font-size: 70px;
+    font-weight: 400;
+    margin-left: 19%;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.main-page-second-section-subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    margin-left: 19%;
+    margin-bottom: 0;
+    margin-top: 40px;
+}
+
+.main-page-second-section-rectangle {
+    width: 63%;
+    height: 600px;
+    background-image: url(../../public/Rectangle.png);
+    background-size: cover;
+    margin-left: 19%;
+    margin-top: 109px;
+}

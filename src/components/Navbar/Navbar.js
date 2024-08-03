@@ -95,10 +95,8 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <Link to="/" className="logo">
-                WORK
-            </Link>
             <div className="menu">
+                <Link to="/" className="logo"></Link>
                 <Link to="/kworks" className="menu-item">
                     Workers
                 </Link>
@@ -116,38 +114,35 @@ const Navbar = () => {
                         Create Project
                     </Link>
                 )}
-                <div
-                    className="profile"
-                    ref={profileRef}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    {getProfileContent()}
-                    {profile && (
-                        <div
-                            className={`profile-dropdown ${dropdownVisible ? "visible" : ""}`}
+            </div>
+            <div
+                className="profile"
+                ref={profileRef}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
+                {getProfileContent()}
+                {profile && (
+                    <div
+                        className={`profile-dropdown ${dropdownVisible ? "visible" : ""}`}
+                    >
+                        <p>{profile.username}</p>
+                        <p>{profile.role}</p>
+                        <Link
+                            to={`/public-profile/${profile.username}`}
+                            onClick={handleLinkClick}
                         >
-                            <p>{profile.username}</p>
-                            <p>{profile.role}</p>
-                            <Link
-                                to={`/public-profile/${profile.username}`}
-                                onClick={handleLinkClick}
-                            >
-                                Profile
-                            </Link>
-                            <Link
-                                to="/dashboard/profile"
-                                onClick={handleLinkClick}
-                            >
-                                Settings
-                            </Link>
-                            <Link to="/help" onClick={handleLinkClick}>
-                                Help
-                            </Link>
-                            <Link onClick={handleLogout}>Sign out</Link>
-                        </div>
-                    )}
-                </div>
+                            Profile
+                        </Link>
+                        <Link to="/dashboard/profile" onClick={handleLinkClick}>
+                            Settings
+                        </Link>
+                        <Link to="/help" onClick={handleLinkClick}>
+                            Help
+                        </Link>
+                        <Link onClick={handleLogout}>Sign out</Link>
+                    </div>
+                )}
             </div>
         </nav>
     );

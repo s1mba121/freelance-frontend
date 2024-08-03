@@ -21,30 +21,44 @@ const MainPage = () => {
 
     return (
         <div className="main-page-container">
-            <h1>Users</h1>
-            <div className="users-list">
-                {users.map((user) => (
-                    <div key={user.id} className="user-item">
-                        {user.profilePicture ? (
-                            <img
-                                src={user.profilePicture}
-                                alt={user.username}
-                                className="user-picture"
-                            />
-                        ) : (
-                            <div
-                                className="profile-placeholder"
-                                style={{ backgroundColor: user.profileColor }}
-                            >
-                                {user.initials}
-                            </div>
-                        )}
-                        <Link to={`/public-profile/${user.username}`}>
-                            <h2>{user.username}</h2>
-                        </Link>
-                        <p>{user.professionalHeadline}</p>
-                    </div>
-                ))}
+            <div className="main-page-first-section">
+                <h1 className="main-page-title">
+                    Объединяем клиентов
+                    <br />и фрилансеров в сфере digital
+                </h1>
+                <h2 className="main-page-subtitle">
+                    К нам присоединилось более 8500 фрилансеров
+                </h2>
+                <Link to="/login" className="main-page-button-try">
+                    Попробовать
+                </Link>
+            </div>
+            <div className="main-page-second-section-info">
+                <h1 className="main-page-second-section-title">
+                    Отдайте задачи фрилансерам
+                    <br />
+                    и освободите время для важного
+                </h1>
+                <h2 className="main-page-second-section-subtitle">
+                    Имея более чем десятилетний опыт работы на фрилансе, мы с
+                    удовольствием
+                    <br />
+                    поддерживаем общество людей, связанных с миром фриланса.
+                    Например,
+                    <br />
+                    помогаем новичкам без опыта находить проекты для портфолио,
+                    связываем
+                    <br />
+                    клиентов с выпускниками обучающих интернет-платформ. Нас
+                    вдохновляет
+                    <br />
+                    то, что и как делают наши пользователи, о чем беседуют и как
+                    решают
+                    <br />
+                    профессиональные проблемы.
+                </h2>
+
+                <div className="main-page-second-section-rectangle"></div>
             </div>
         </div>
     );

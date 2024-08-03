@@ -4,13 +4,24 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    background-color: #333;
-    padding: 0 150px;
+    background-color: #141414;
+    padding: 0;
     height: 60px;
     color: white;
+    width: 75%;
+    margin-top: 10px;
+    border-radius: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    z-index: 10;
 }
 
 .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url('../../../public/7b43f4a274f8469e58700ebb2f0c577b.jpeg');
+    background-size: cover;
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -37,7 +48,6 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 55px;
     height: 55px;
 }
 
