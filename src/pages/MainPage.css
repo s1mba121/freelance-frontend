@@ -100,4 +100,26 @@ body {
     background-size: cover;
     margin-left: 19%;
     margin-top: 109px;
+
+    p {
+        margin-left: 6%;
+        position: relative;
+        top: 66%;
+        max-width: 490px;
+        line-height: 0.5;
+    }
+
+    .main-page-text {
+        display: block;
+
+        a {
+            margin-top: 2%;
+            margin-left: 6%;
+        }
+
+        h2 {
+            margin-left: 6%;
+            width: 450px;
+        }
+    }
 }
