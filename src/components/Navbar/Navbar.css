@@ -3,7 +3,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
     background-color: #141414;
     padding: 0;
     height: 60px;
@@ -52,8 +51,8 @@
 }
 
 .profile-placeholder {
-    width: 35px;
-    height: 35px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -79,7 +78,7 @@
     background-color: #fff;
     color: #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 10px;
     width: 200px;
     z-index: 1000;
@@ -91,17 +90,66 @@
 
 .profile-dropdown p {
     margin: 0;
-    padding: 8px 10px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 5px;
+    font-size: 14px;
 }
 
 .profile-dropdown a {
     display: block;
     padding: 8px 10px;
     text-decoration: none;
-    color: #333;
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 5px;
 }
 
 .profile-dropdown a:hover {
-    background-color: #f1f1f1;
+    background-color: #333;
+}
+
+.login-button {
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #8557F7;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+}
+
+.login-block,
+.profile-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.city {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    
+    width: 132px;
+    height: 40px;
+    background-color: #8557F7;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    margin-right: 20px;
+}
+
+/* Ensure the dropdown is only visible when hovering over the avatar or profile image */
+.profile-block:hover .profile-dropdown,
+.profile-block:hover .profile-placeholder,
+.profile-block:hover .profile-image {
+    display: block;
 }

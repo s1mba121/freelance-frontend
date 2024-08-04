@@ -1,0 +1,56 @@
+.preloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000000;
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* На переднем плане */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.greeting-text {
+    font-size: 50px;
+    font-weight: bold;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.preloader.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Анимация swipe-up */
+.swipe-up {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    z-index: 999; /* Чуть ниже прелоадера */
+    animation: swipeUp 0.3s ease-out;
+    display: none; /* Скрываем swipe-up по умолчанию */
+}
+
+.preloader.hidden + .swipe-up {
+    display: block; /* Показываем swipe-up только когда прелоадер скрыт */
+}
+
+@keyframes swipeUp {
+    from {
+        bottom: 0;
+    }
+    to {
+        bottom: 100%;
+    }
+}

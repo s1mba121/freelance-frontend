@@ -69,7 +69,7 @@ const Projects = () => {
     return (
         <div className="projects-container">
             <div className="header">
-                <h1>Available Projects</h1>
+                <h1 style={{ color: "white" }}>Available Projects</h1>
                 <SearchBar
                     searchTerm={searchTerm}
                     onSearchChange={handleSearchChange}
