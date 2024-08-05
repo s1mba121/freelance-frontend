@@ -1,4 +1,3 @@
-// src\components\Navbar\Navbar.js
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Navbar.css";
@@ -10,6 +9,8 @@ const Navbar = () => {
     const [profile, setProfile] = useState(null);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [city, setCity] = useState("Москва"); // Default city
+    const [scrollY, setScrollY] = useState(0);
+    const [hidden, setHidden] = useState(false);
     const token = localStorage.getItem("token");
     const user = authService.getCurrentUser();
     const profileRef = useRef(null);
@@ -135,8 +136,31 @@ const Navbar = () => {
         setDropdownVisible(false);
     };
 
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY) {
+                setHidden(true);
+            } else {
+                setHidden(false);
+            }
+
+            lastScrollY = currentScrollY;
+            setScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${hidden ? "navbar-hidden" : ""}`}>
             <div className="menu">
                 <Link to="/" className="logo"></Link>
                 <Link to="/kworks" className="menu-item">

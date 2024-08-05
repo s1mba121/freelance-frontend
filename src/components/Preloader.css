@@ -10,13 +10,13 @@
     left: 0;
     width: 100%;
     z-index: 1000; /* На переднем плане */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transition: transform 1s ease-out, opacity 0.2s ease-out;
 }
 
 .greeting-text {
     font-size: 50px;
     font-weight: bold;
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -38,7 +38,7 @@
     height: 100%;
     background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
     z-index: 999; /* Чуть ниже прелоадера */
-    animation: swipeUp 0.3s ease-out;
+    animation: swipeUp 1s ease-out;
     display: none; /* Скрываем swipe-up по умолчанию */
 }
 
