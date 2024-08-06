@@ -51,7 +51,6 @@ body {
     height: 115vh;
     position: relative;
     top: -100px;
-    background-image: url(../../public/image\ 11.png);
     background-size: cover;
 }
 
@@ -157,6 +156,7 @@ body {
     margin-top: 30px;
     width: 63%;
 }
+
 .main-page-second-section-rectangle-info-item {
     width: 40%;
     height: 100%;
@@ -183,6 +183,7 @@ body {
         margin-bottom: 30px;
     }
 }
+
 /* info-help */
 
 .main-page-third-section-info-help {
