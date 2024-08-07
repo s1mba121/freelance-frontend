@@ -1,8 +1,8 @@
+// src\pages\MainPage.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import userService from "../services/userService";
 import "./MainPage.css";
-import StarBackground from "../components/StarBackground/StarBackground";
 
 const MainPage = () => {
     const [users, setUsers] = useState([]);
@@ -22,7 +22,6 @@ const MainPage = () => {
 
     return (
         <div className="main-page-container">
-            <StarBackground />
             <div className="main-page-first-section">
                 <h1 className="main-page-title">
                     Объединяем клиентов
@@ -62,10 +61,17 @@ const MainPage = () => {
 
                 <div className="main-page-second-section-rectangle">
                     <div className="main-page-text">
-                        <a>Как это работает</a>
-                        <h2>
-                            Мы зададим все важные вопросы, чтобы вам было проще
-                            описать задачу.
+                        <a style={{ fontSize: "18px" }}>Как это работает</a>
+                        <h2
+                            style={{
+                                fontSize: "36px",
+                                fontWeight: "400",
+                                marginTop: "10px",
+                            }}
+                        >
+                            Мы зададим все важные вопросы, чтобы вам
+                            <br />
+                            было проще описать задачу.
                         </h2>
                     </div>
 
@@ -78,7 +84,168 @@ const MainPage = () => {
                         результат.
                     </p>
                 </div>
+
+                <div className="main-page-second-section-rectangle-info">
+                    <div
+                        style={{
+                            marginRight: "20px",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundImage:
+                                "url('/39559ead86aeb6db8b4544e236c11b29.jpeg')",
+                        }}
+                        className="main-page-second-section-rectangle-info-item"
+                    >
+                        <h1>Оставляете свой заказ ✍</h1>
+                        <h2>
+                            Добрый день! Когда вам
+                            <br />
+                            будет удобно встретиться?
+                        </h2>
+                    </div>
+                    <div
+                        style={{
+                            marginRight: "20px",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundImage: "url('/SliderElement_2.png')",
+                        }}
+                        className="main-page-second-section-rectangle-info-item"
+                    >
+                        <h1>Спецалисты напишут Вам сами</h1>
+                        <h2>
+                            Показываем заказ
+                            <br />
+                            подходящим специалистам.
+                            <br />
+                            Они напишут, если готовы
+                            <br />
+                            помочь.
+                        </h2>
+                    </div>
+                    <div
+                        style={{
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundImage: "url('/SliderElement_3.png')",
+                        }}
+                        className="main-page-second-section-rectangle-info-item"
+                    >
+                        <h1>Сервис берёт на всe обязанности</h1>
+                        <h2>
+                            Берём на себя все
+                            <br />
+                            обязанности по введению
+                            <br />
+                            сделки, чтобы не отвлекаться
+                            <br />
+                            на бюрократию
+                        </h2>
+                    </div>
+                </div>
             </div>
+            <div className="main-page-third-section-info-help">
+                <div className="main-page-third-section-info-help-items">
+                    <h1>С чем мы можем помочь</h1>
+                    <h2>В вашем регионе работает 338 243 специалиста</h2>
+                    <div className="main-page-third-section-info-help-rectangles">
+                        <div
+                            style={{ marginRight: "30px" }}
+                            className="main-page-third-section-info-help-rectangle"
+                        >
+                            <div
+                                style={{
+                                    backgroundImage:
+                                        "url('/Rectangle 40009.png')",
+                                }}
+                                className="main-page-third-section-info-help-rectangle-item"
+                            ></div>
+                        </div>
+                        <div
+                            style={{
+                                marginRight: "30px",
+                            }}
+                            className="main-page-third-section-info-help-rectangle"
+                        >
+                            <div
+                                style={{
+                                    backgroundImage:
+                                        "url('/Frame2087325465.png')",
+                                }}
+                                className="main-page-third-section-info-help-rectangle-item"
+                            ></div>
+                        </div>
+                        <div className="main-page-third-section-info-help-rectangle">
+                            <div
+                                style={{
+                                    backgroundImage:
+                                        "url('/Frame2087325466.png') ",
+                                }}
+                                className="main-page-third-section-info-help-rectangle-item"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div className="footer-block-buttons">
+                    <div className="footer-block-buttons-items">
+                        <div className="footer-item">
+                            <h1>Центр помощи</h1>
+                            <Link>Общие вопросы</Link>
+                            <Link>Споры и проблемы</Link>
+                            <Link>Популярные статьи</Link>
+                            <Link>База знаний</Link>
+                        </div>
+                        <div className="footer-item">
+                            <h1>Новости</h1>
+                            <Link>Блог</Link>
+                            <Link>Telegram</Link>
+                            <Link>YouTube</Link>
+                            <Link>VK</Link>
+                        </div>
+                        <div className="footer-item">
+                            <h1>Поддержка</h1>
+                            <Link>Чат с поддержкой</Link>
+                            <Link>Отправить запрос</Link>
+                            <Link>Центральный </Link>
+                        </div>
+                        <div className="footer-item">
+                            <h1>О компании</h1>
+                            <Link>Условия использования ИС</Link>
+                            <Link>Условия соглашения ЗК</Link>
+                            <Link>FAQ</Link>
+                        </div>
+                        <div
+                            style={{ marginRight: "0" }}
+                            className="footer-item"
+                        >
+                            <h1>Команда</h1>
+                            <Link>Вакансии</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="footer-block-copyright">
+                    <div className="footer-block-copyright-item">
+                        <p>© 2024  Проект компании Dwork 16+</p>
+                        <div className="footer-block-copyright-item-a">
+                            <Link>Пользовательское соглашение</Link>
+                            <p>|</p>
+                            <Link>Политика компании</Link>
+                        </div>
+                    </div>
+                    <p>
+                        «Dwork» осуществляет деятельность в области
+                        информационных технологий. Вид деятельности (код): 2.01.
+                        <br />
+                        На информационном ресурсе применяются рекомендательные
+                        технологии
+                    </p>
+                </div>
+            </footer>
         </div>
     );
 };
