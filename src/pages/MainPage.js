@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import userService from "../services/userService";
 import "./MainPage.css";
 import StarBackground from "../components/StarBackground/StarBackground";
+import ThreeDeeMale from "../assets/ThreeDeeMale.png";
+import ThreeDeeMale2 from "../assets/ThreeDeeMale2.png";
 
 const MainPage = () => {
     const [users, setUsers] = useState([]);
@@ -34,6 +36,98 @@ const MainPage = () => {
                 <Link to="/login" className="main-page-button-try">
                     Попробовать
                 </Link>
+            </div>
+            <div className="main-page-secondaly-section">
+                <h2 className="main-page-secondaly-title">
+                    ПОЧЕМУ СТОИТ ДОВЕРЯТЬ ИМЕННО НАМ?
+                </h2>
+                <p className="main-page-secondaly-subtitle">
+                    Международная биржа фриланса Dwork — это удобный,
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    стабильный и безопасный инструмент работы для заказчиков и
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    исполнителей со всего мира. Мы собрали все плюсы и минусы
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    с других фриланс-бирж, чтобы создать идеальное место для
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    работы и заработка. Владельцы бизнеса без труда могут найти
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    проверенного и ответственного фрилансера из нужной сферы
+                </p>
+                <p className="main-page-secondaly-subtitle">деятельности.</p>
+
+                <br></br>
+                <p className="main-page-secondaly-subtitle">
+                    Удаленные сотрудники, в свою очередь, получают надежных
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    клиентов и возможность хорошо заработать. Наша биржа
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    обладает широким функционалом, который облегчает процесс
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    работы и обеспечивает безопасность сделок. На Dwork вы
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    найдете все необходимое для успешного ведения бизнеса или
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    поиска работы в качестве фрилансера.
+                </p>
+                <img src={ThreeDeeMale} />
+            </div>
+
+            <div className="main-page-secondaly-section">
+                <h2 className="main-page-secondaly-title">
+                    МЫ НА ОДНОЙ ВОЛНЕ СО ВСЕМИ ЛЮДЬМИ
+                </h2>
+                <p className="main-page-secondaly-subtitle">
+                    Мы стремимся к максимальной прозрачности и честности во
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    всех наших сделках. Наша биржа предоставляет возможность
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    заказчикам быстро найти квалифицированных исполнителей
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    для выполнения задач любой сложности. А исполнителям мы
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    предлагаем широкий выбор заказов и гарантируем
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    своевременную оплату за выполненную работу. Мы
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    предлагаем только высококачественные услуги и открыты для
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    всех, кто хочет найти надежного партнера для сотрудничества.
+                </p>
+                <br></br>
+                <p className="main-page-secondaly-subtitle">
+                    На нашей платформе нет платы за отклики или необходимости
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    приобретать премиум-аккаунты для увеличения заработка. У
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    нас нет скрытых платежей, поэтому вы всегда можете быть
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    уверены, что платите за услуги по справедливой цене. Наша
+                </p>
+                <p className="main-page-secondaly-subtitle">
+                    цель - обеспечить вам удобное использование нашей биржы.
+                </p>
+                <img src={ThreeDeeMale2} />
             </div>
             <div className="main-page-second-section-info">
                 <h1 className="main-page-second-section-title">
