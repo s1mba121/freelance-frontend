@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Roboto-Flex';
+    src: url('../../fonts/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf') format('truetype');
+}
+
 .navbar {
     position: fixed;
     display: flex;
@@ -30,7 +35,6 @@
     font-weight: bold;
     display: flex;
     align-items: center;
-    cursor: pointer;
     text-decoration: none;
     color: #fff;
 }
@@ -44,8 +48,21 @@
 .menu-item {
     cursor: pointer;
     text-decoration: none;
-    color: #fff;
+    color: #8B8B8B; /* Цвет по умолчанию */
     font-size: 16px;
+    transition: 0.3s;
+}
+
+.menu-item.active {
+    color: #fff; /* Цвет для активной страницы */
+}
+
+.menu-item:hover {
+    scale: 1.02;
+}
+
+.menu-item.active:hover {
+    scale: 1;
 }
 
 .profile {
@@ -126,11 +143,15 @@
     border-radius: 20px;
     border: 1px solid #fff;
     transition: all 0.3s ease;
+    font-family: Roboto-Flex;
+    font-weight: 400;
 }
 
 .login-button:hover {
     background-color: #fff;
     color: #141414;
+    font-family: Roboto-Flex;
+    font-weight: 400;
 }
 
 .login-block,

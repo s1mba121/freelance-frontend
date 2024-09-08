@@ -1,251 +1,393 @@
-// src\pages\MainPage.js
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import userService from "../services/userService";
+import React, { useRef, useState, useEffect } from "react";
 import "./MainPage.css";
 
 const MainPage = () => {
-    const [users, setUsers] = useState([]);
+    const [currentSubBlock, setCurrentSubBlock] = useState(0);
+    const [subBlockOpacity, setSubBlockOpacity] = useState(1);
+    const mainBlockRef = useRef(null);
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await userService.getAllUsers();
-                setUsers(response.data);
-            } catch (error) {
-                console.error("Failed to fetch users:", error);
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const mainBlockOffsetTop = mainBlockRef.current.offsetTop;
+
+            const delayBeforeAnimation = viewportHeight * 0.1;
+            const relativeScroll =
+                scrollPosition - mainBlockOffsetTop - delayBeforeAnimation;
+
+            const blockHeight = viewportHeight * 0.75;
+            const extraScroll = blockHeight * 0.25;
+
+            if (relativeScroll >= 0) {
+                const subBlockIndex = Math.floor(
+                    relativeScroll / (blockHeight + extraScroll)
+                );
+                setCurrentSubBlock(subBlockIndex);
+
+                if (subBlockIndex < 3) {
+                    // Изменено с 6 на 5
+                    const subBlockRelativeScroll =
+                        relativeScroll -
+                        subBlockIndex * (blockHeight + extraScroll);
+
+                    let opacity = 1;
+                    if (subBlockRelativeScroll > extraScroll) {
+                        opacity =
+                            1 -
+                            Math.min(
+                                Math.max(
+                                    (subBlockRelativeScroll - extraScroll) /
+                                        blockHeight,
+                                    0
+                                ),
+                                1
+                            );
+                    }
+
+                    setSubBlockOpacity(opacity);
+                } else {
+                    setSubBlockOpacity(1);
+                }
             }
         };
 
-        fetchUsers();
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     return (
         <div className="main-page-container">
             <div className="main-page-first-section">
-                <h1 className="main-page-title">
-                    Объединяем клиентов
-                    <br />и фрилансеров в сфере digital
-                </h1>
-                <h2 className="main-page-subtitle">
-                    К нам присоединилось более 8500 фрилансеров
-                </h2>
-                <Link to="/login" className="main-page-button-try">
-                    Попробовать
-                </Link>
-            </div>
-            <div className="main-page-second-section-info">
-                <h1 className="main-page-second-section-title">
-                    Отдайте задачи фрилансерам
-                    <br />
-                    и освободите время для важного
-                </h1>
-                <h2 className="main-page-second-section-subtitle">
-                    Имея более чем десятилетний опыт работы на фрилансе, мы с
-                    удовольствием
-                    <br />
-                    поддерживаем общество людей, связанных с миром фриланса.
-                    Например,
-                    <br />
-                    помогаем новичкам без опыта находить проекты для портфолио,
-                    связываем
-                    <br />
-                    клиентов с выпускниками обучающих интернет-платформ. Нас
-                    вдохновляет
-                    <br />
-                    то, что и как делают наши пользователи, о чем беседуют и как
-                    решают
-                    <br />
-                    профессиональные проблемы.
-                </h2>
-
-                <div className="main-page-second-section-rectangle">
-                    <div className="main-page-text">
-                        <a style={{ fontSize: "18px" }}>Как это работает</a>
-                        <h2
-                            style={{
-                                fontSize: "36px",
-                                fontWeight: "400",
-                                marginTop: "10px",
-                            }}
-                        >
-                            Мы зададим все важные вопросы, чтобы вам
-                            <br />
-                            было проще описать задачу.
-                        </h2>
-                    </div>
-
-                    <p>Дизайн, разработка веб-сайта, создание видео.</p>
-                    <p>
-                        Правильно составьте вопросы, что вам нужно и задавайте
-                    </p>
-                    <p>
-                        условия — чем подробнее задание, тем качественнее
-                        результат.
-                    </p>
-                </div>
-
-                <div className="main-page-second-section-rectangle-info">
-                    <div
-                        style={{
-                            marginRight: "20px",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            backgroundImage:
-                                "url('/39559ead86aeb6db8b4544e236c11b29.jpeg')",
-                        }}
-                        className="main-page-second-section-rectangle-info-item"
-                    >
-                        <h1>Оставляете свой заказ ✍</h1>
-                        <h2>
-                            Добрый день! Когда вам
-                            <br />
-                            будет удобно встретиться?
-                        </h2>
-                    </div>
-                    <div
-                        style={{
-                            marginRight: "20px",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            backgroundImage: "url('/SliderElement_2.png')",
-                        }}
-                        className="main-page-second-section-rectangle-info-item"
-                    >
-                        <h1>Спецалисты напишут Вам сами</h1>
-                        <h2>
-                            Показываем заказ
-                            <br />
-                            подходящим специалистам.
-                            <br />
-                            Они напишут, если готовы
-                            <br />
-                            помочь.
-                        </h2>
-                    </div>
-                    <div
-                        style={{
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            backgroundImage: "url('/SliderElement_3.png')",
-                        }}
-                        className="main-page-second-section-rectangle-info-item"
-                    >
-                        <h1>Сервис берёт на всe обязанности</h1>
-                        <h2>
-                            Берём на себя все
-                            <br />
-                            обязанности по введению
-                            <br />
-                            сделки, чтобы не отвлекаться
-                            <br />
-                            на бюрократию
-                        </h2>
-                    </div>
+                <video className="background-video" autoPlay loop muted>
+                    <source src="MainBackground.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        backgroundColor: "black",
+                        width: "100%",
+                        height: "100%",
+                        opacity: 0.13,
+                    }}
+                    className="background-black"
+                ></div>
+                <div className="main-page-title-container">
+                    <h1 className="main-page-title">
+                        Объединяем клиентов
+                        <br />и фрилансеров в сфере digital
+                    </h1>
+                    <h2 className="main-page-subtitle">
+                        Мы на пути открытия новой и успешной биржи
+                    </h2>
                 </div>
             </div>
-            <div className="main-page-third-section-info-help">
-                <div className="main-page-third-section-info-help-items">
-                    <h1>С чем мы можем помочь</h1>
-                    <h2>В вашем регионе работает 338 243 специалиста</h2>
-                    <div className="main-page-third-section-info-help-rectangles">
-                        <div
-                            style={{ marginRight: "30px" }}
-                            className="main-page-third-section-info-help-rectangle"
-                        >
+
+            <div className="main-block" ref={mainBlockRef}>
+                <div className="sticky-block">
+                    {[...Array(3)].map(
+                        (
+                            _,
+                            index // Изменено с 6 на 5
+                        ) => (
                             <div
+                                key={index}
+                                className={`sub-block`}
                                 style={{
-                                    backgroundImage:
-                                        "url('/Rectangle 40009.png')",
+                                    opacity:
+                                        currentSubBlock === index
+                                            ? subBlockOpacity
+                                            : 0,
+                                    zIndex: currentSubBlock === index ? 1 : 0,
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    transition: "opacity 0.3s ease-out",
                                 }}
-                                className="main-page-third-section-info-help-rectangle-item"
-                            ></div>
-                        </div>
-                        <div
-                            style={{
-                                marginRight: "30px",
-                            }}
-                            className="main-page-third-section-info-help-rectangle"
-                        >
-                            <div
-                                style={{
-                                    backgroundImage:
-                                        "url('/Frame2087325465.png')",
-                                }}
-                                className="main-page-third-section-info-help-rectangle-item"
-                            ></div>
-                        </div>
-                        <div className="main-page-third-section-info-help-rectangle">
-                            <div
-                                style={{
-                                    backgroundImage:
-                                        "url('/Frame2087325466.png') ",
-                                }}
-                                className="main-page-third-section-info-help-rectangle-item"
-                            ></div>
-                        </div>
-                    </div>
+                            >
+                                {index === 0 ? (
+                                    <>
+                                        <div className="block-container">
+                                            <div className="block-text">
+                                                <h2>Почему именно мы</h2>
+                                                <p>
+                                                    Международная биржа фриланса
+                                                    Dwork — это удобный,
+                                                    стабильный и безопасный
+                                                    инструмент работы для
+                                                    заказчиков и исполнителей со
+                                                    всего мира.
+                                                </p>
+                                            </div>
+                                            <img
+                                                src="oc-on-the-laptop.png"
+                                                alt="Иллюстрация 1"
+                                                className="block-illustration"
+                                            />
+                                        </div>
+                                    </>
+                                ) : index === 1 ? (
+                                    <>
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                left: "51px",
+                                            }}
+                                            className="block-container"
+                                        >
+                                            <div
+                                                style={{
+                                                    left: "-30px",
+                                                    maxWidth: "460px",
+                                                }}
+                                                className="block-text"
+                                            >
+                                                <h2
+                                                    style={{
+                                                        fontSize: "37px",
+                                                        margin: "0px",
+                                                        letterSpacing: "-0.5px",
+                                                    }}
+                                                >
+                                                    Новое сочетание
+                                                </h2>
+                                                <p
+                                                    style={{
+                                                        margin: "0px",
+                                                        position: "relative",
+                                                        top: "-11.5px",
+                                                        left: "-1px",
+                                                        letterSpacing: "-1.2px",
+                                                        lineHeight: "26px",
+                                                    }}
+                                                >
+                                                    Мы собрали все плюсы и
+                                                    минусы с других
+                                                    <br />
+                                                    фриланс-бирж, чтобы создать
+                                                    идеальное место
+                                                    <br />
+                                                    для работы и заработка.
+                                                    Владельцы бизнеса без
+                                                    <br />
+                                                    труда могут найти
+                                                    проверенного и
+                                                    <br />
+                                                    ответственного фрилансера из
+                                                    нужной сферы деятельности.
+                                                </p>
+                                                <h2
+                                                    style={{
+                                                        fontSize: "37px",
+                                                        marginLeft: "0px",
+                                                        marginRight: "0px",
+                                                        letterSpacing: "-0.5px",
+                                                        marginBottom: "0px",
+                                                        position: "relative",
+                                                        marginTop: "19px",
+                                                    }}
+                                                >
+                                                    Качество
+                                                </h2>
+                                                <p
+                                                    style={{
+                                                        margin: "0px",
+                                                        top: "-11.5px",
+                                                        position: "relative",
+                                                        letterSpacing: "-1.2px",
+                                                        lineHeight: "24px",
+                                                        left: "-1px",
+                                                    }}
+                                                >
+                                                    Удаленные сотрудники, в свою
+                                                    очередь,
+                                                    <br />
+                                                    получают надежных клиентов и
+                                                    возможность
+                                                    <br />
+                                                    хорошо заработать. Наша
+                                                    биржа обладает
+                                                    <br />
+                                                    широким функционалом,
+                                                    который облегчает
+                                                    <br />
+                                                    процесс работы и
+                                                    обеспечивает безопасность
+                                                    <br />
+                                                    сделок.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <img
+                                            src="illustration2.png"
+                                            alt="Иллюстрация 2"
+                                            className="block-illustration"
+                                            style={{
+                                                width: "579.1px",
+                                                height: "426.9px",
+                                                position: "relative",
+                                                left: "-21px",
+                                                top: "-14px",
+                                            }}
+                                        />
+                                    </>
+                                ) : index === 2 ? (
+                                    <>
+                                        <div
+                                            className="block-container"
+                                            style={{
+                                                position: "relative",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <div
+                                                style={{
+                                                    marginTop: "25px",
+                                                    left: "6px",
+                                                }}
+                                                className="block-text"
+                                            >
+                                                <h2
+                                                    style={{
+                                                        fontSize: "37px",
+                                                        margin: "0px",
+                                                        letterSpacing: "-1.2px",
+                                                        marginTop: "7px",
+                                                    }}
+                                                >
+                                                    Наша прозрачность
+                                                </h2>
+                                                <p
+                                                    style={{
+                                                        margin: "0px",
+                                                        top: "-13px",
+                                                        position: "relative",
+                                                        letterSpacing: "-1.2px",
+                                                    }}
+                                                >
+                                                    Мы стремимся к максимальной
+                                                    прозрачности и честности во
+                                                    всех наших сделках.
+                                                </p>
+                                                <h2
+                                                    style={{
+                                                        fontSize: "37px",
+                                                        margin: "0px",
+                                                        letterSpacing: "-1.3px",
+                                                        marginTop: "13px",
+                                                    }}
+                                                >
+                                                    Широкий выбор
+                                                </h2>
+                                                <p
+                                                    style={{
+                                                        margin: "0px",
+                                                        top: "-10px",
+                                                        position: "relative",
+                                                        letterSpacing: "-1.2px",
+                                                    }}
+                                                >
+                                                    Исполнителям мы предлагаем
+                                                    широкий выбор заказов и
+                                                    гарантируем своевременную
+                                                    оплату
+                                                    <br />
+                                                    за выполненную работу.
+                                                </p>
+                                                <h2
+                                                    style={{
+                                                        margin: "0px",
+                                                        fontSize: "37px",
+                                                        letterSpacing: "-1.2px",
+                                                        marginTop: "13px",
+                                                    }}
+                                                >
+                                                    Отклики
+                                                </h2>
+                                                <p
+                                                    style={{
+                                                        margin: "0px",
+                                                        top: "-12px",
+                                                        position: "relative",
+                                                        letterSpacing: "-1.2px",
+                                                    }}
+                                                >
+                                                    На нашей платформе нет платы
+                                                    за отклики или необходимости
+                                                    приобретать премиум-аккаунты
+                                                    <br />
+                                                    для увеличения заработка.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <img
+                                            src="illustration3.png"
+                                            alt="Иллюстрация 3"
+                                            className="block-illustration"
+                                            style={{
+                                                width: "554.65px",
+                                                height: "436.29px",
+                                                position: "relative",
+                                                left: "-4px",
+                                                top: "-11px",
+                                            }}
+                                        />
+                                    </>
+                                ) : null}
+                            </div>
+                        )
+                    )}
                 </div>
             </div>
-            <footer>
-                <div className="footer-block-buttons">
-                    <div className="footer-block-buttons-items">
-                        <div className="footer-item">
-                            <h1>Центр помощи</h1>
-                            <Link>Общие вопросы</Link>
-                            <Link>Споры и проблемы</Link>
-                            <Link>Популярные статьи</Link>
-                            <Link>База знаний</Link>
-                        </div>
-                        <div className="footer-item">
-                            <h1>Новости</h1>
-                            <Link>Блог</Link>
-                            <Link>Telegram</Link>
-                            <Link>YouTube</Link>
-                            <Link>VK</Link>
-                        </div>
-                        <div className="footer-item">
-                            <h1>Поддержка</h1>
-                            <Link>Чат с поддержкой</Link>
-                            <Link>Отправить запрос</Link>
-                            <Link>Центральный </Link>
-                        </div>
-                        <div className="footer-item">
-                            <h1>О компании</h1>
-                            <Link>Условия использования ИС</Link>
-                            <Link>Условия соглашения ЗК</Link>
-                            <Link>FAQ</Link>
-                        </div>
-                        <div
-                            style={{ marginRight: "0" }}
-                            className="footer-item"
-                        >
-                            <h1>Команда</h1>
-                            <Link>Вакансии</Link>
-                        </div>
-                    </div>
-                </div>
-                <div className="footer-block-copyright">
-                    <div className="footer-block-copyright-item">
-                        <p>© 2024  Проект компании Dwork 16+</p>
-                        <div className="footer-block-copyright-item-a">
-                            <Link>Пользовательское соглашение</Link>
-                            <p>|</p>
-                            <Link>Политика компании</Link>
-                        </div>
-                    </div>
-                    <p>
-                        «Dwork» осуществляет деятельность в области
-                        информационных технологий. Вид деятельности (код): 2.01.
+
+            <div className="content-block-2">
+                <div className="content-block-2-text">
+                    <h2>
+                        Работайте в любом
                         <br />
-                        На информационном ресурсе применяются рекомендательные
-                        технологии
+                        уголке планеты, не
+                        <br />
+                        отвлекаясь от биржы
+                    </h2>
+                    <p>
+                        Полное удобство с возможностями для заработка
+                        <br />в любое время и в любом месте.
                     </p>
                 </div>
-            </footer>
+            </div>
+            <div className="line">
+                <h2>То, что вам по душе</h2>
+                <p>
+                    Занимайтесь тем, что вам нравится — и от экрана уже
+                    не оторваться
+                </p>
+            </div>
+            <div className="content-block-3">
+                {/* <div className="content-block-3-black"></div> */}
+                <div className="content-block-3-text">
+                    <h2>
+                        Лаконичный дизайн,
+                        <br />
+                        не отвлекающий
+                        <br />
+                        от работы
+                    </h2>
+                    <p>
+                        Ничего лишнего на бирже — только вы
+                        <br />
+                        и ваша фантазия
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };

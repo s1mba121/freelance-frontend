@@ -15,6 +15,10 @@ import MainPage from "./pages/MainPage";
 import Navbar from "./components/Navbar/Navbar";
 import CreateProject from "./components/Projects/CreateProject";
 import Projects from "./components/Projects/Projects";
+import Wiki from "./pages/Wiki/WikiPage";
+import News from "./pages/News/NewsPage";
+import Blog from "./pages/Blog/BlogPage";
+import NoPage from "./pages/NoPage/NoPage";
 
 const AppRoutes = ({ setIsLoading }) => (
     <Router>
@@ -26,7 +30,13 @@ const AppRoutes = ({ setIsLoading }) => (
 
 const Layout = ({ setIsLoading }) => {
     const location = useLocation();
-    const hideNavbar = ["/login", "/register"].includes(location.pathname);
+    const hideNavbar = [
+        "/login",
+        "/register",
+        "/wiki",
+        "/news",
+        "/blog",
+    ].includes(location.pathname);
 
     // Показываем прелоадер только на главной странице
     React.useEffect(() => {
@@ -56,6 +66,9 @@ const Layout = ({ setIsLoading }) => {
                 />{" "}
                 {/* новый маршрут */}
                 <Route path="/orders" element={<Projects />} />{" "}
+                <Route path="/wiki" element={<NoPage />} />
+                <Route path="/news" element={<NoPage />} />
+                <Route path="/blog" element={<NoPage />} />
                 {/* новый маршрут */}
             </Routes>
         </>

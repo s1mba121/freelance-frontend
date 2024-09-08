@@ -1,0 +1,76 @@
+html {
+    overflow: -moz-scrollbars-none;  /* для Firefox */
+    -ms-overflow-style: none;        /* для Internet Explorer и Edge */
+    scrollbar-width: none;           /* для Firefox */
+}
+
+/* Для веб-браузеров на базе WebKit (например, Chrome, Safari, Opera) */
+html::-webkit-scrollbar {
+    display: none;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../fonts/InterVariable.ttf') format('opentype');
+}
+
+.no-page {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #fff;
+    color: #000;
+}
+
+.no-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-page-title {
+    font-size: 44px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    font-family: Inter;
+    line-height: 53.25px;
+    margin-top: 0px;
+}
+
+.no-page-subtitle {
+    font-size: 19px;
+    font-family: Inter;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 27px;
+    margin-bottom: 0px;
+}
+
+.no-page-img {
+    margin-bottom: 0px;
+    margin-top: 85px;
+}
+
+.back {
+    position: relative;
+    margin-top: 60px;
+    width: 319px;
+    height: 54px;
+    background: url(/public/Frame\ 2087325626.png) center center no-repeat;
+    border-radius: 12px;
+    border: none;
+
+    transition: 0.3s;
+    display: flex;
+
+}
+
+.back:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}

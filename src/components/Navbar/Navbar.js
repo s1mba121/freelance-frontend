@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import authService from "../../services/authService";
 import userService from "../../services/userService";
@@ -8,13 +8,12 @@ import axios from "axios";
 const Navbar = () => {
     const [profile, setProfile] = useState(null);
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [city, setCity] = useState("Москва"); // Default city
-    const [scrollY, setScrollY] = useState(0);
-    const [hidden, setHidden] = useState(false);
     const token = localStorage.getItem("token");
     const user = authService.getCurrentUser();
     const profileRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
+    const [hidden, setHidden] = useState(false);
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -30,37 +29,6 @@ const Navbar = () => {
 
         fetchProfile();
     }, [user, profile, token]);
-
-    useEffect(() => {
-        const fetchCity = async (lat, lon) => {
-            try {
-                const res = await axios.get(
-                    `https://geocode.xyz/${lat},${lon}?geoit=json`
-                );
-                setCity(res.data.city || "Москва");
-            } catch (error) {
-                console.error("Error fetching city:", error);
-            }
-        };
-
-        const handleLocation = (position) => {
-            const { latitude, longitude } = position.coords;
-            fetchCity(latitude, longitude);
-        };
-
-        const handleError = () => {
-            setCity("Москва");
-        };
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                handleLocation,
-                handleError
-            );
-        } else {
-            setCity("Москва");
-        }
-    }, []);
 
     const handleMouseEnter = () => {
         setDropdownVisible(true);
@@ -149,7 +117,6 @@ const Navbar = () => {
             }
 
             lastScrollY = currentScrollY;
-            setScrollY(currentScrollY);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -162,27 +129,45 @@ const Navbar = () => {
     return (
         <nav className={`navbar ${hidden ? "navbar-hidden" : ""}`}>
             <div className="menu">
-                <Link to="/" className="logo"></Link>
-                <Link to="/kworks" className="menu-item">
-                    Workers
+                <div to="/" className="logo"></div>
+                <Link
+                    to="/"
+                    className={`menu-item ${location.pathname === "/" ? "active" : ""}`}
+                >
+                    Главная
                 </Link>
-                <Link to="/orders" className="menu-item">
-                    Orders
+                <Link
+                    to="/news"
+                    className={`menu-item ${location.pathname === "/news" ? "active" : ""}`}
+                >
+                    Новости
                 </Link>
-                <Link to="/portfolio" className="menu-item">
-                    Portfolio
+                <Link
+                    to="/wiki"
+                    className={`menu-item ${location.pathname === "/wiki" ? "active" : ""}`}
+                >
+                    Вики
                 </Link>
-                <Link to="/chat" className="menu-item">
-                    Chat
+                <Link
+                    to="/blog"
+                    className={`menu-item ${location.pathname === "/blog" ? "active" : ""}`}
+                >
+                    Блог
                 </Link>
                 {profile && profile.role === "client" && (
-                    <Link to="/dashboard/create-project" className="menu-item">
+                    <Link
+                        to="/dashboard/create-project"
+                        className={`menu-item ${
+                            location.pathname === "/dashboard/create-project"
+                                ? "active"
+                                : ""
+                        }`}
+                    >
                         Create Project
                     </Link>
                 )}
             </div>
             <div className="profile" ref={profileRef}>
-                {user && <div className="city">{city}</div>}
                 {getProfileContent()}
                 {profile && (
                     <div
