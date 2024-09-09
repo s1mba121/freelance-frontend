@@ -352,15 +352,16 @@ const MainPage = () => {
             <div className="content-block-2">
                 <div className="content-block-2-text">
                     <h2>
-                        Работайте в любом
+                        Лаконичный дизайн,
                         <br />
-                        уголке планеты, не
+                        не отвлекающий
                         <br />
-                        отвлекаясь от биржы
+                        от работы
                     </h2>
                     <p>
-                        Полное удобство с возможностями для заработка
-                        <br />в любое время и в любом месте.
+                        Ничего лишнего на бирже — только вы
+                        <br />
+                        и ваша фантазия
                     </p>
                 </div>
             </div>
@@ -375,17 +376,31 @@ const MainPage = () => {
                 {/* <div className="content-block-3-black"></div> */}
                 <div className="content-block-3-text">
                     <h2>
-                        Лаконичный дизайн,
+                        Работайте в любом
                         <br />
-                        не отвлекающий
+                        уголке планеты, не
                         <br />
-                        от работы
+                        выходя из дома
                     </h2>
                     <p>
-                        Ничего лишнего на бирже — только вы
-                        <br />
-                        и ваша фантазия
+                        Полное удобство с возможностями для заработка
+                        <br />в любое время и в любом месте.
                     </p>
+                </div>
+            </div>
+            <div className="content-block-4">
+                <h1 className="content-block-4-title">
+                    Ваши персональные
+                    <br />
+                    рекомендации
+                </h1>
+                <h2 className="content-block-4-subtitle">
+                    Можно ничего не искать — биржа сама подскажет,
+                    <br />
+                    что посмотреть, на основе ваших предпочтений
+                </h2>
+                <div className="content-block-4-blocks">
+                    <div className="content-block-4-blur"></div>
                 </div>
             </div>
         </div>
