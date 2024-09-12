@@ -1,95 +1,280 @@
-/* src\components\Auth\Auth.css */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    /* background: linear-gradient(135deg, #1f4037 0%, #99f2c8 100%); */
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    height: 100vh;
-}
-
 .auth-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
+    align-items: center;
     height: 100vh;
+    overflow: hidden;
+}
+  
+  .step-indicator {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-bottom: 20px; /* Добавляем отступ между индикатором и контентом */
+    position: absolute;
+    top: 120px;
+  }
+  
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #505050;
+    background: #242424;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .step-item h1 {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 15.56px; /* 119.692% */
+    letter-spacing: 0.13px;
+    margin-top: 8px;
+  }
+  
+  /* Стили для активного шага */
+  .step-item.active .step-circle {
+    border: 1px solid #AB6FFF;
+    background: #7B3DD1;
+  }
+  
 
+.active-blocks {
+    display: flex;
+    flex-direction: row;
+
+    gap: 72px;
 }
 
 .auth-box {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 100px;
+}
+
+.active-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        color: #FFF;
+        font-family: Inter;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 15.56px; /* 119.692% */
+        letter-spacing: 0.13px;
+    }
+}
+
+.active-block-1-logo {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid #AB6FFF;
+
+    background: #7B3DD1;
+}
+
+.active-block-2-logo {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid #505050;
+
+    background: #242424;
+}
+
+.auth-title {
+    color: #FFF;
     text-align: center;
-    width: 100%;
-    max-width: 400px;
-}
+    font-family: Inter;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 15.56px; /* 81.895% */
+    letter-spacing: 0.19px;
+    text-transform: uppercase;
 
-.auth-box h2 {
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-.input-container {
-    margin-bottom: 1rem;
-    position: relative;
-    color: #fff;
-}
-
-.input-container input {
-    width: 374px;
-    padding: 0.75rem;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-}
-
-.input-container input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    margin-bottom: 36px;
 }
 
 .auth-options {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-    margin-bottom: 1rem;
-    color: #fff;
+    justify-content: center;
+    position: relative;
+
+    gap: 15px;
+    margin-bottom: 197px;
 }
 
-.auth-options a {
-    color: #fff;
-    text-decoration: none;
-}
+.auth-option-logo-1 {
+    display: flex;
+    width: 233px;
+    height: 287px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    margin-bottom: 20px;
 
-.auth-options input {
-    margin-right: 0.5rem;
-}
+    background: url(/public/e7eabe2c6410acf63bd1100ae732b15f.png);
+    background-position: center;
+    background-size: cover;
 
-.auth-button {
-    width: 400px;
-    padding: 0.75rem;
-    border: none;
     border-radius: 5px;
-    background: #007bff;
-    color: #fff;
-    font-size: 1rem;
+    border: 1px solid #FFF;
+
+    mix-blend-mode: luminosity;
+}
+
+.auth-option-logo-2 {
+    display: flex;
+    width: 233px;
+    height: 287px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+
+    background: url(/public/a8e32091e0dce16477134c8ce60426c1.png);
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 5px;
+    border: 1px solid #FFF;
+
+    mix-blend-mode: luminosity;
+}
+
+/* auth-option-button-1 */
+.auth-option-button-1 {
+    width: 100%;
+    height: 49px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 5px;
+    border: 0.8px solid #4E4E4E;
+    
+    background: #121212;
+
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    z-index: 3;
+
+    h1 {
+        color: #FFF;
+        font-family: Inter;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 15.56px; /* 119.692% */
+        text-transform: uppercase;
+
+        opacity: 0.5;
+        transition: all 0.2s ease-in-out;
+    }
 }
 
-.auth-button:hover {
-    background: #0056b3;
+.auth-option-button-1:hover {
+    border: 0.8px solid #4E4E4E;
+    background: #683381;
 }
 
-.error {
-    color: red;
-    margin-top: 1rem;
+.auth-option-button-1:hover h1 {
+    opacity: 1;
+}
+
+.auth-option:hover .auth-option-logo-1 {
+    mix-blend-mode: normal;
+    filter: brightness(1.2); /* Для примера добавим яркость */
+}
+
+.auth-option-button-2 {
+    width: 100%;
+    height: 49px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 5px;
+    border: 0.8px solid #4E4E4E;
+    
+    background: #121212;
+
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    z-index: 3;
+
+    h1 {
+        color: #FFF;
+        font-family: Inter;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 15.56px; /* 119.692% */
+        text-transform: uppercase;
+
+        opacity: 0.5;
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+.auth-option-button-2:hover {
+    border: 0.8px solid #4E4E4E;
+    background: #683381;
+}
+
+.auth-option-button-2:hover h1 {
+    opacity: 1;
+}
+
+.auth-option:hover .auth-option-logo-2 {
+    mix-blend-mode: normal;
+    filter: brightness(1.2); /* Добавим яркость для примера */
+}
+
+.auth-option-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 87%;
+    z-index: 2; /* Слой выше карточки */
 }

@@ -6,8 +6,6 @@ import {
     Routes,
     useLocation,
 } from "react-router-dom";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
 import Profile from "./components/Dashboard/Profile";
 import Portfolios from "./components/Dashboard/Portfolios";
 import PublicProfile from "./components/Dashboard/PublicProfile";
@@ -19,6 +17,8 @@ import Wiki from "./pages/Wiki/WikiPage";
 import News from "./pages/News/NewsPage";
 import Blog from "./pages/Blog/BlogPage";
 import NoPage from "./pages/NoPage/NoPage";
+import Auth from "./components/Auth/Auth";
+import ResetPassword from "./components/Auth/ResetPassword/ResetPassword";
 
 const AppRoutes = ({ setIsLoading }) => (
     <Router>
@@ -52,8 +52,8 @@ const Layout = ({ setIsLoading }) => {
             {!hideNavbar && <Navbar />}
             <Routes>
                 <Route path="/" element={<MainPage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/dashboard/profile" element={<Profile />} />
                 <Route
                     path="/public-profile/:username"

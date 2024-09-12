@@ -1,0 +1,239 @@
+.auth-box {
+    max-height: 600px;
+    margin-top: 236px;
+}
+
+.step-two-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.reg-log-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.reg-log-button {
+    display: flex;
+    width: 233px;
+    height: 41px;
+    padding: 16px 26px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    border: 0.8px solid #4E4E4E;
+    background: #121212;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 15.56px; /* 119.692% */
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+}
+
+.reg-log-button:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.9);
+    background: #181818;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    padding: 16px 15px 16px 48px;
+    border-radius: 5px;
+    border: 0.8px solid #4E4E4E;
+    background: #181818;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 15.56px;
+}
+
+.input:focus {
+    outline: none;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.icon {
+    position: absolute;
+    left: 15px;
+    color: #FFF;
+}
+
+.login-icon::before {
+    content: ''; /* Замените на вашу иконку */
+}
+
+.login-icon {
+    margin-top: 3px;
+}
+
+.username-icon::before {
+    content: ''; /* Замените на вашу иконку */
+}
+
+.username-icon {
+    margin-top: 3px;
+}
+
+.password-icon::before {
+    content: ''; /* Замените на вашу иконку */
+}
+
+.password-icon {
+    margin-top: 3px;
+}
+
+.eye-icon::before {
+    content: ''; /* Замените на иконку глаза для отображения/скрытия пароля */
+}
+
+.eye-icon {
+    margin-top: 3px;
+    left: 93%;
+}
+
+.phone-icon::before {
+    content: ''; /* Замените на вашу иконку */
+}
+
+.phone-icon {
+    margin-top: 3px;
+}
+
+.code-icon::before {
+    content: ''; /* Замените на вашу иконку */
+}
+
+.code-icon {
+    margin-top: 3px;
+}
+
+.role-selection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    gap: 15px;
+}
+
+.role-button {
+    flex: 1;
+    color: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    height: 41px;
+
+    border-radius: 5px;
+    border: 0.8px solid #4E4E4E;
+    background: #181818;
+
+    margin: 0;
+
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 15.56px; /* 119.692% */
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+}
+
+.role-button:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.9);
+    background: #181818;
+}
+
+.register-button-container {
+    width: 100%;
+    max-width: 481px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-button {
+    width: 100%;
+    
+    border-radius: 5px;
+    border: 1px solid #353535;
+    background: #090909;
+    backdrop-filter: blur(77.5px);
+
+    color: rgba(255, 255, 255, 0.4);    ;
+    padding: 17px 26px 17px 26px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.register-button:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.9);
+    background: #181818;
+}
+
+.terms-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.reset-password-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+
+    color: #727272;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 15.56px; /* 119.692% */
+    text-transform: uppercase;
+
+    margin-top: 1px;
+    margin-bottom: 262px;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.reset-password-button:hover {
+    background: none;
+    color: rgba(255, 255, 255, 0.9);
+}

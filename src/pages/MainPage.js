@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./MainPage.css";
+import Footer from "../components/Footer/Footer"
+import Carousel from '../components/Carousel/Carousel';
 
 const MainPage = () => {
     const [currentSubBlock, setCurrentSubBlock] = useState(0);
@@ -60,6 +62,7 @@ const MainPage = () => {
     }, []);
 
     return (
+        <>
         <div className="main-page-container">
             <div className="main-page-first-section">
                 <video className="background-video" autoPlay loop muted>
@@ -400,10 +403,13 @@ const MainPage = () => {
                     что посмотреть, на основе ваших предпочтений
                 </h2>
                 <div className="content-block-4-blocks">
-                    <div className="content-block-4-blur"></div>
+                    {/* <div className="content-block-4-blur"></div> */}
+                    <Carousel />
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

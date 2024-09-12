@@ -42,7 +42,7 @@ const Navbar = () => {
         if (!user) {
             return (
                 <div className="login-block">
-                    <Link to="/login" className="login-button">
+                    <Link to="/auth" className="login-button">
                         Войти
                     </Link>
                 </div>
@@ -128,8 +128,9 @@ const Navbar = () => {
 
     return (
         <nav className={`navbar ${hidden ? "navbar-hidden" : ""}`}>
-            <div className="menu">
+            
                 <div to="/" className="logo"></div>
+                <div className="menu-buttons">
                 <Link
                     to="/"
                     className={`menu-item ${location.pathname === "/" ? "active" : ""}`}
@@ -146,7 +147,7 @@ const Navbar = () => {
                     to="/wiki"
                     className={`menu-item ${location.pathname === "/wiki" ? "active" : ""}`}
                 >
-                    Вики
+                    Биржа
                 </Link>
                 <Link
                     to="/blog"
@@ -154,19 +155,9 @@ const Navbar = () => {
                 >
                     Блог
                 </Link>
-                {profile && profile.role === "client" && (
-                    <Link
-                        to="/dashboard/create-project"
-                        className={`menu-item ${
-                            location.pathname === "/dashboard/create-project"
-                                ? "active"
-                                : ""
-                        }`}
-                    >
-                        Create Project
-                    </Link>
-                )}
-            </div>
+                <Link to={"/wiki"} className={`menu-item ${location.pathname === "/wiki" ? "active" : ""}`}>База знаний</Link>
+                </div>
+           
             <div className="profile" ref={profileRef}>
                 {getProfileContent()}
                 {profile && (

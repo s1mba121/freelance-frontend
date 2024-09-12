@@ -362,3 +362,13 @@ body {
     background: #FFF;
     filter: blur(150px);
 }
+
+/* ScrollBlocks */
+.content-block-4-blocks {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+}
