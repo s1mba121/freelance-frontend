@@ -9,7 +9,7 @@ import {
 import Profile from "./components/Dashboard/Profile";
 import Portfolios from "./components/Dashboard/Portfolios";
 import PublicProfile from "./components/Dashboard/PublicProfile";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/Main/MainPage";
 import Navbar from "./components/Navbar/Navbar";
 import CreateProject from "./components/Projects/CreateProject";
 import Projects from "./components/Projects/Projects";
@@ -17,7 +17,7 @@ import Wiki from "./pages/Wiki/WikiPage";
 import News from "./pages/News/NewsPage";
 import Blog from "./pages/Blog/BlogPage";
 import NoPage from "./pages/NoPage/NoPage";
-import Auth from "./components/Auth/Auth";
+import Auth from "./pages/Auth/Auth";
 import ResetPassword from "./components/Auth/ResetPassword/ResetPassword";
 import NewPassword from "./components/Auth/NewPassword/NewPassword";
 import Status from "./pages/Status/StatusPage";

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
-import Footer from "../Footer/Footer";
-import StepOne from "./StepOne";
-import StepTwo from "./StepTwo";
+import Footer from "../../components/Footer/Footer";
+import StepOne from "../../components/Auth/Steps/StepOne";
+import StepTwo from "../../components/Auth/Steps/StepTwo";
 
 const Auth = () => {
     const [step, setStep] = useState(1);

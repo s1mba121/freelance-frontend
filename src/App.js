@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppRoutes from "./routes";
-import Preloader from "./components/Preloader";
+import Preloader from "./components/Preloader/Preloader";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);

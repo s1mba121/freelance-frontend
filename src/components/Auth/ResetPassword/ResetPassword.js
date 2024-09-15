@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Auth.css";
+import "../../../pages/Auth/Auth.css";
 import Footer from "../../Footer/Footer";
 import "./ResetPassword.css";
 import ReCAPTCHA from "react-google-recaptcha";

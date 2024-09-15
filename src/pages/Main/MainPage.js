@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./MainPage.css";
-import Footer from "../components/Footer/Footer";
-import Carousel from "../components/Carousel/Carousel";
+import Footer from "../../components/Footer/Footer";
+import Carousel from "../../components/Carousel/Carousel";
 
 const MainPage = () => {
     const [currentSubBlock, setCurrentSubBlock] = useState(0);

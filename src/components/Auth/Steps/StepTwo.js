@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./StepTwo.css";
-import RegisterForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
+import RegisterForm from "../Forms/RegisterForm";
+import LoginForm from "../Forms/LoginForm";
 
 const StepTwo = ({ role, handlePrevStep, handleForgotPasswordClick }) => {
     const [isLogin, setIsLogin] = useState(false); // По умолчанию показываем регистрацию

@@ -1,6 +1,5 @@
 import React from "react";
-import "./StepTwo.css";
-import { Link } from "react-router-dom";
+import "../Steps/StepTwo.css";
 
 const LoginForm = ({ handleForgotPasswordClick }) => {
     const [passwordVisible, setPasswordVisible] = React.useState(false);

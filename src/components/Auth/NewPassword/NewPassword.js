@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Auth.css";
+import "../../../pages/Auth/Auth.css";
 import Footer from "../../Footer/Footer";
 import "./NewPassword.css";
 import { useParams, useNavigate } from "react-router-dom"; // Для получения параметров из ссылки
