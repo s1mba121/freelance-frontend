@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./StepTwo.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 
-const StepTwo = ({ handlePrevStep }) => {
-    const [isLogin, setIsLogin] = React.useState(true);
+const StepTwo = ({ role, handlePrevStep, handleForgotPasswordClick }) => {
+    const [isLogin, setIsLogin] = useState(false); // По умолчанию показываем регистрацию
+    const [isTransitioning, setIsTransitioning] = useState(false); // Состояние для анимации
 
-    const toggleForm = () => {
-        setIsLogin(!isLogin);
+    const toggleForm = (formType) => {
+        if (isLogin !== formType) {
+            setIsTransitioning(true); // Запускаем анимацию
+            setTimeout(() => {
+                setIsLogin(formType); // Меняем форму после задержки
+                setIsTransitioning(false); // Завершаем анимацию
+            }, 300); // 300мс задержка для анимации
+        }
     };
 
     return (
@@ -15,19 +22,43 @@ const StepTwo = ({ handlePrevStep }) => {
             <div className="step-two-container">
                 <div className="reg-log-buttons">
                     <button
-                        onClick={() => setIsLogin(false)}
-                        className="reg-log-button reg"
+                        onClick={() => toggleForm(false)}
+                        className={`reg-log-button reg ${
+                            !isLogin ? "active" : ""
+                        }`}
                     >
                         РЕГИСТРАЦИЯ
                     </button>
                     <button
-                        onClick={() => setIsLogin(true)}
-                        className="reg-log-button log"
+                        onClick={() => toggleForm(true)}
+                        className={`reg-log-button log ${
+                            isLogin ? "active" : ""
+                        }`}
                     >
                         АВТОРИЗАЦИЯ
                     </button>
                 </div>
-                {isLogin ? <LoginForm /> : <RegisterForm />}
+                <div
+                    style={{
+                        opacity: isTransitioning ? 0 : 1,
+                        transition: "opacity 0.3s ease-in-out",
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                >
+                    {isLogin ? (
+                        <LoginForm
+                            handleForgotPasswordClick={
+                                handleForgotPasswordClick
+                            }
+                        />
+                    ) : (
+                        <RegisterForm role={role} />
+                    )}
+                </div>
             </div>
         </>
     );

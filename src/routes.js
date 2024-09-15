@@ -19,6 +19,8 @@ import Blog from "./pages/Blog/BlogPage";
 import NoPage from "./pages/NoPage/NoPage";
 import Auth from "./components/Auth/Auth";
 import ResetPassword from "./components/Auth/ResetPassword/ResetPassword";
+import NewPassword from "./components/Auth/NewPassword/NewPassword";
+import Status from "./pages/Status/StatusPage";
 
 const AppRoutes = ({ setIsLoading }) => (
     <Router>
@@ -36,6 +38,7 @@ const Layout = ({ setIsLoading }) => {
         "/wiki",
         "/news",
         "/blog",
+        "/status",
     ].includes(location.pathname);
 
     // Показываем прелоадер только на главной странице
@@ -54,6 +57,10 @@ const Layout = ({ setIsLoading }) => {
                 <Route path="/" element={<MainPage />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route
+                    path="/new-password/:email/:token"
+                    element={<NewPassword />}
+                />
                 <Route path="/dashboard/profile" element={<Profile />} />
                 <Route
                     path="/public-profile/:username"
@@ -69,6 +76,7 @@ const Layout = ({ setIsLoading }) => {
                 <Route path="/wiki" element={<NoPage />} />
                 <Route path="/news" element={<NoPage />} />
                 <Route path="/blog" element={<NoPage />} />
+                <Route path="/status" element={<Status />} />
                 {/* новый маршрут */}
             </Routes>
         </>

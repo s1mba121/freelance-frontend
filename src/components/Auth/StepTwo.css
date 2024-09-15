@@ -1,6 +1,6 @@
 .auth-box {
     max-height: 600px;
-    margin-top: 236px;
+    margin-top: 220px;
 }
 
 .step-two-container {
@@ -42,10 +42,21 @@
     transition: all 0.2s ease-in-out;
 }
 
+.reg-log-button.active {
+    color: rgba(255, 255, 255, 0.9);
+    
+    border-radius: 5px;
+    border: 0.8px solid #B8B8B8;
+    background: #4D1778;
+
+    cursor: default;
+}
+
 .reg-log-button:hover {
     color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.9);
-    background: #181818;
+    border-radius: 5px;
+    border: 0.8px solid #B8B8B8;
+    background: #4D1778;
 }
 
 .input-container {
@@ -68,7 +79,7 @@
     border-radius: 5px;
     border: 0.8px solid #4E4E4E;
     background: #181818;
-    color: #FFF;
+    color: rgba(255, 255, 255, 0.9);
     font-family: Inter;
     font-size: 14px;
     font-weight: 600;
@@ -77,7 +88,7 @@
 
 .input:focus {
     outline: none;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .icon {
@@ -194,21 +205,36 @@
     color: rgba(255, 255, 255, 0.4);    ;
     padding: 17px 26px 17px 26px;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: default;
     margin: 0;
+    transition: all 0.2s ease-in-out;
 }
 
 .register-button:hover {
-    color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.9);
-    background: #181818;
+    border: 1px solid #353535;
+    background: #090909;
+    cursor: default;
 }
+
+.register-button.active {
+    color: rgba(255, 255, 255, 0.9);
+    border: 0.8px solid #B8B8B8;
+    background: #4D1778;
+    cursor: pointer;
+}
+
+/* .register-button.active:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border: 0.8px solid #B8B8B8;
+    background: #4D1778;
+    cursor: pointer;
+} */
 
 .terms-container {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 14px;
     font-size: 12px;
 }
 
@@ -226,8 +252,10 @@
     font-weight: 800;
     line-height: 15.56px; /* 119.692% */
     text-transform: uppercase;
+    text-decoration: none;
 
-    margin-top: 1px;
+
+    margin-top: 14px;
     margin-bottom: 262px;
 
     transition: all 0.2s ease-in-out;
@@ -236,4 +264,61 @@
 .reset-password-button:hover {
     background: none;
     color: rgba(255, 255, 255, 0.9);
+}
+
+.eye-svg {
+    transition: transform 0.2s ease-in-out;
+}
+
+.input-container {
+    transition: opacity 0.3s ease-out;
+}
+
+.input-container.fade-out {
+    opacity: 0;
+}
+
+.notification {
+    position: fixed;
+    top: 200px;
+    left: -900px; /* Начальная позиция вне экрана */
+    color: #fff;
+    font-size: 16px;
+    transition: left 0.5s ease-in-out;
+    
+    width: 320px;
+    height: 80px;
+    
+    border-radius: 0px 15px 15px 0px;
+    border-left: 4px solid rgba(0, 0, 0, 0.20);
+    background: #181818;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    
+    animation: slideIn 0.5s ease-in-out, slideOut 0.5s ease-in-out 2.5s; /* slideOut начинается через 2.5 секунды */
+}
+
+@keyframes slideIn {
+    from {
+        left: -900px;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        left: 0px;
+    }
+    to {
+        left: -900px;
+    }
+}
+
+.notification.show {
+    left: 0px; /* Конечная позиция на экране */
 }

@@ -1,7 +1,101 @@
-import React from "react";
+import React, { useState } from "react";
 import "./StepTwo.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const RegisterForm = () => {
+const RegisterForm = ({ role }) => {
+    const [formData, setFormData] = useState({
+        username: "",
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        verificationCode: "",
+    });
+
+    const [showPassword1, setShowPassword1] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isCodeSent, setIsCodeSent] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+
+    const [showNotification, setShowNotification] = useState(false);
+
+    const navigate = useNavigate(); // Инициализация navigate
+
+    const togglePassword1 = () => setShowPassword1(!showPassword1);
+    const togglePassword2 = () => setShowPassword2(!showPassword2);
+
+    const isFormValid = () => {
+        return (
+            formData.username &&
+            formData.fullName &&
+            formData.email &&
+            formData.password &&
+            formData.confirmPassword &&
+            formData.password === formData.confirmPassword &&
+            validateEmail(formData.email) &&
+            isTermsAccepted
+        );
+    };
+
+    const validateEmail = (email) => {
+        // Simple email validation regex
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleTermsChange = () => {
+        setIsTermsAccepted(!isTermsAccepted);
+    };
+
+    const handleAction = async () => {
+        if (!isCodeSent) {
+            setIsSubmitting(true);
+            try {
+                await axios.post("http://localhost:3000/api/auth/register", {
+                    username: formData.username,
+                    fullName: formData.fullName,
+                    email: formData.email,
+                    password: formData.password,
+                    role: role,
+                });
+                setIsCodeSent(true);
+                // Показываем уведомление после успешной отправки
+                setShowNotification(true);
+                setTimeout(() => {
+                    setShowNotification(false); // Скрываем уведомление через 3 секунды
+                }, 3000);
+            } catch (error) {
+                console.error("Error registering:", error);
+            }
+            setIsSubmitting(false);
+        } else if (!isVerified) {
+            try {
+                await axios.post(
+                    "http://localhost:3000/api/auth/verify-email",
+                    {
+                        email: formData.email,
+                        code: formData.verificationCode,
+                    }
+                );
+                setIsVerified(true);
+                // Перенаправление после успешной проверки
+                navigate("/status");
+            } catch (error) {
+                console.error("Verification error:", error);
+            }
+        }
+    };
+
     return (
         <>
             <div className="input-container">
@@ -15,14 +109,14 @@ const RegisterForm = () => {
                             fill="none"
                         >
                             <circle
-                                cx="10.9999"
-                                cy="5.49967"
+                                cx="11"
+                                cy="5.50016"
                                 r="3.66667"
                                 stroke="#848484"
                                 stroke-width="1.5"
                             />
                             <path
-                                d="M13.7499 18.8975C12.9164 19.1237 11.984 19.2503 10.9999 19.2503C7.45609 19.2503 4.58325 17.6087 4.58325 15.5837C4.58325 13.5586 7.45609 11.917 10.9999 11.917C14.5437 11.917 17.4166 13.5586 17.4166 15.5837C17.4166 15.9002 17.3464 16.2073 17.2144 16.5003"
+                                d="M13.75 18.897C12.9165 19.1232 11.9841 19.2498 11 19.2498C7.45618 19.2498 4.58334 17.6082 4.58334 15.5832C4.58334 13.5581 7.45618 11.9165 11 11.9165C14.5438 11.9165 17.4167 13.5581 17.4167 15.5832C17.4167 15.8997 17.3465 16.2069 17.2145 16.4998"
                                 stroke="#848484"
                                 stroke-width="1.5"
                                 stroke-linecap="round"
@@ -32,7 +126,17 @@ const RegisterForm = () => {
                     <input
                         className="input"
                         type="text"
+                        name="username"
                         placeholder="Введите ваш логин"
+                        value={formData.username}
+                        onChange={handleChange}
+                        disabled={isCodeSent || isSubmitting}
+                        style={{
+                            color:
+                                isCodeSent || isSubmitting
+                                    ? "rgba(255, 255, 255, 0.4)"
+                                    : "#fff",
+                        }}
                     />
                 </div>
                 <div className="input-wrapper">
@@ -45,31 +149,31 @@ const RegisterForm = () => {
                             fill="none"
                         >
                             <circle
-                                cx="8.25008"
-                                cy="8.25033"
+                                cx="8.25"
+                                cy="8.24984"
                                 r="1.83333"
                                 stroke="#848484"
                                 stroke-width="1.5"
                             />
                             <path
-                                d="M11.9166 13.7503C11.9166 14.7628 11.9166 15.5837 8.24992 15.5837C4.58325 15.5837 4.58325 14.7628 4.58325 13.7503C4.58325 12.7378 6.22487 11.917 8.24992 11.917C10.275 11.917 11.9166 12.7378 11.9166 13.7503Z"
+                                d="M11.9167 13.7498C11.9167 14.7624 11.9167 15.5832 8.25 15.5832C4.58334 15.5832 4.58334 14.7624 4.58334 13.7498C4.58334 12.7373 6.22496 11.9165 8.25 11.9165C10.275 11.9165 11.9167 12.7373 11.9167 13.7498Z"
                                 stroke="#848484"
                                 stroke-width="1.5"
                             />
                             <path
-                                d="M20.1666 11.0003C20.1666 14.4573 20.1666 16.1858 19.0926 17.2597C18.0187 18.3337 16.2902 18.3337 12.8333 18.3337H9.16659C5.70962 18.3337 3.98114 18.3337 2.90719 17.2597C1.83325 16.1858 1.83325 14.4573 1.83325 11.0003C1.83325 7.54336 1.83325 5.81488 2.90719 4.74093C3.98114 3.66699 5.70962 3.66699 9.16659 3.66699H12.8333C16.2902 3.66699 18.0187 3.66699 19.0926 4.74093C19.5231 5.1714 19.781 5.70704 19.9356 6.41699"
-                                stroke="#848484"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            />
-                            <path
-                                d="M17.4167 11H13.7501"
+                                d="M20.1667 10.9998C20.1667 14.4568 20.1667 16.1853 19.0927 17.2592C18.0188 18.3332 16.2903 18.3332 12.8333 18.3332H9.16667C5.7097 18.3332 3.98122 18.3332 2.90728 17.2592C1.83334 16.1853 1.83334 14.4568 1.83334 10.9998C1.83334 7.54287 1.83334 5.81439 2.90728 4.74045C3.98122 3.6665 5.7097 3.6665 9.16667 3.6665H12.8333C16.2903 3.6665 18.0188 3.6665 19.0927 4.74045C19.5232 5.17092 19.7811 5.70655 19.9357 6.4165"
                                 stroke="#848484"
                                 stroke-width="1.5"
                                 stroke-linecap="round"
                             />
                             <path
-                                d="M17.4167 8.25H12.8334"
+                                d="M17.4167 11H13.75"
+                                stroke="#848484"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M17.4167 8.25H12.8333"
                                 stroke="#848484"
                                 stroke-width="1.5"
                                 stroke-linecap="round"
@@ -85,7 +189,17 @@ const RegisterForm = () => {
                     <input
                         className="input"
                         type="text"
+                        name="fullName"
                         placeholder="Имя или ник"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        disabled={isCodeSent || isSubmitting}
+                        style={{
+                            color:
+                                isCodeSent || isSubmitting
+                                    ? "rgba(255, 255, 255, 0.4)"
+                                    : "#fff",
+                        }}
                     />
                 </div>
                 <div className="input-wrapper">
@@ -98,7 +212,7 @@ const RegisterForm = () => {
                             fill="none"
                         >
                             <path
-                                d="M19.311 4.58301C19.8536 5.46122 20.1666 6.49521 20.1666 7.60199C20.1666 10.7881 17.5731 13.371 14.3739 13.371C13.7902 13.371 12.461 13.2368 11.8144 12.7002L11.0061 13.5052C10.3326 14.1759 10.8714 14.1759 11.1408 14.7126C11.1408 14.7126 11.8144 15.6517 11.1408 16.5909C10.7367 17.1275 9.60507 17.8788 8.31183 16.5909L8.0424 16.8592C8.0424 16.8592 8.85068 17.7983 8.17712 18.7375C7.77298 19.2741 6.69528 19.8108 5.75229 18.8716C5.70738 18.9164 5.45592 19.1668 4.8093 19.8108C4.16268 20.4547 3.37239 20.0791 3.05807 19.8108L2.24979 19.0058C1.4954 18.2545 1.93546 17.4406 2.24979 17.1275L9.25485 10.1511C9.25485 10.1511 8.58129 9.07778 8.58129 7.60199C8.58129 4.41587 11.1747 1.83301 14.3739 1.83301C15.1245 1.83301 15.8417 1.97517 16.4999 2.23394"
+                                d="M19.3111 4.5835C19.8537 5.46171 20.1667 6.4957 20.1667 7.60248C20.1667 10.7886 17.5732 13.3715 14.374 13.3715C13.7903 13.3715 12.4611 13.2373 11.8145 12.7006L11.0062 13.5057C10.3326 14.1764 10.8715 14.1764 11.1409 14.7131C11.1409 14.7131 11.8144 15.6522 11.1409 16.5914C10.7367 17.128 9.60516 17.8793 8.31191 16.5914L8.04249 16.8597C8.04249 16.8597 8.85076 17.7988 8.1772 18.738C7.77306 19.2746 6.69536 19.8113 5.75237 18.8721C5.70747 18.9168 5.456 19.1673 4.80938 19.8113C4.16276 20.4552 3.37247 20.0796 3.05815 19.8113L2.24987 19.0063C1.49548 18.255 1.93554 17.4411 2.24987 17.128L9.25494 10.1516C9.25494 10.1516 8.58137 9.07826 8.58137 7.60248C8.58137 4.41636 11.1748 1.8335 14.374 1.8335C15.1246 1.8335 15.8418 1.97566 16.5 2.23442"
                                 stroke="#848484"
                                 stroke-width="1.5"
                                 stroke-linecap="round"
@@ -113,29 +227,55 @@ const RegisterForm = () => {
                     </span>
                     <input
                         className="input"
-                        type="password"
+                        type={showPassword1 ? "text" : "password"}
+                        name="password"
                         placeholder="Пароль"
+                        value={formData.password}
+                        onChange={handleChange}
+                        disabled={isCodeSent || isSubmitting}
+                        style={{
+                            color:
+                                isCodeSent || isSubmitting
+                                    ? "rgba(255, 255, 255, 0.4)"
+                                    : "#fff",
+                        }}
                     />
-                    <span className="icon eye-icon">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.50008 3.71602C8.25969 3.47441 9.0921 3.33301 10.0001 3.33301C13.485 3.33301 15.8568 5.41597 17.271 7.25328C17.9793 8.17345 18.3334 8.63353 18.3334 9.99967C18.3334 11.3658 17.9793 11.8259 17.271 12.7461C15.8568 14.5834 13.485 16.6663 10.0001 16.6663C6.51518 16.6663 4.14339 14.5834 2.72916 12.7461C2.02088 11.8259 1.66675 11.3658 1.66675 9.99967C1.66675 8.63353 2.02088 8.17345 2.72916 7.25328C3.13018 6.73229 3.60819 6.19155 4.16675 5.68415"
-                                stroke="#3F3F3F"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            />
-                            <path
-                                d="M12.5 10C12.5 11.3807 11.3807 12.5 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5C11.3807 7.5 12.5 8.61929 12.5 10Z"
-                                stroke="#3F3F3F"
-                                stroke-width="1.5"
-                            />
-                        </svg>
+                    <span className="icon eye-icon" onClick={togglePassword1}>
+                        {showPassword1 ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                            >
+                                <path
+                                    d="M7.50008 3.71602C8.25969 3.47441 9.0921 3.33301 10.0001 3.33301C13.485 3.33301 15.8568 5.41597 17.271 7.25328C17.9793 8.17345 18.3334 8.63353 18.3334 9.99967C18.3334 11.3658 17.9793 11.8259 17.271 12.7461C15.8568 14.5834 13.485 16.6663 10.0001 16.6663C6.51518 16.6663 4.14339 14.5834 2.72916 12.7461C2.02088 11.8259 1.66675 11.3658 1.66675 9.99967C1.66675 8.63353 2.02088 8.17345 2.72916 7.25328C3.13018 6.73229 3.60819 6.19155 4.16675 5.68415"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                />
+                                <path
+                                    d="M12.5 10C12.5 11.3807 11.3807 12.5 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5C11.3807 7.5 12.5 8.61929 12.5 10Z"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                            >
+                                <path
+                                    d="M2.01677 10.0003C2.01677 10.0003 4.6001 4.16699 10.0001 4.16699C12.692 4.16699 14.6413 5.39871 15.8068 6.70837L2.01677 10.0003ZM10.0001 15.8337C7.30823 15.8337 5.35889 14.602 4.19336 13.2923L17.9834 10.0003L10.0001 15.8337ZM13.3334 10.0003C13.3334 11.8408 11.8405 13.3337 10.0001 13.3337C8.15964 13.3337 6.66677 11.8408 6.66677 10.0003C6.66677 8.15986 8.15964 6.66699 10.0001 6.66699C11.8405 6.66699 13.3334 8.15986 13.3334 10.0003Z"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        )}
                     </span>
                 </div>
                 <div className="input-wrapper">
@@ -155,33 +295,59 @@ const RegisterForm = () => {
                     </span>
                     <input
                         className="input"
-                        type="password"
+                        type={showPassword2 ? "text" : "password"}
+                        name="confirmPassword"
                         placeholder="Повторите пароль"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        disabled={isCodeSent || isSubmitting}
+                        style={{
+                            color:
+                                isCodeSent || isSubmitting
+                                    ? "rgba(255, 255, 255, 0.4)"
+                                    : "#fff",
+                        }}
                     />
-                    <span className="icon eye-icon">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                        >
-                            <path
-                                d="M7.50008 3.71602C8.25969 3.47441 9.0921 3.33301 10.0001 3.33301C13.485 3.33301 15.8568 5.41597 17.271 7.25328C17.9793 8.17345 18.3334 8.63353 18.3334 9.99967C18.3334 11.3658 17.9793 11.8259 17.271 12.7461C15.8568 14.5834 13.485 16.6663 10.0001 16.6663C6.51518 16.6663 4.14339 14.5834 2.72916 12.7461C2.02088 11.8259 1.66675 11.3658 1.66675 9.99967C1.66675 8.63353 2.02088 8.17345 2.72916 7.25328C3.13018 6.73229 3.60819 6.19155 4.16675 5.68415"
-                                stroke="#3F3F3F"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            />
-                            <path
-                                d="M12.5 10C12.5 11.3807 11.3807 12.5 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5C11.3807 7.5 12.5 8.61929 12.5 10Z"
-                                stroke="#3F3F3F"
-                                stroke-width="1.5"
-                            />
-                        </svg>
+                    <span className="icon eye-icon" onClick={togglePassword2}>
+                        {showPassword2 ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                            >
+                                <path
+                                    d="M7.50008 3.71602C8.25969 3.47441 9.0921 3.33301 10.0001 3.33301C13.485 3.33301 15.8568 5.41597 17.271 7.25328C17.9793 8.17345 18.3334 8.63353 18.3334 9.99967C18.3334 11.3658 17.9793 11.8259 17.271 12.7461C15.8568 14.5834 13.485 16.6663 10.0001 16.6663C6.51518 16.6663 4.14339 14.5834 2.72916 12.7461C2.02088 11.8259 1.66675 11.3658 1.66675 9.99967C1.66675 8.63353 2.02088 8.17345 2.72916 7.25328C3.13018 6.73229 3.60819 6.19155 4.16675 5.68415"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                />
+                                <path
+                                    d="M12.5 10C12.5 11.3807 11.3807 12.5 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5C11.3807 7.5 12.5 8.61929 12.5 10Z"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                            >
+                                <path
+                                    d="M2.01677 10.0003C2.01677 10.0003 4.6001 4.16699 10.0001 4.16699C12.692 4.16699 14.6413 5.39871 15.8068 6.70837L2.01677 10.0003ZM10.0001 15.8337C7.30823 15.8337 5.35889 14.602 4.19336 13.2923L17.9834 10.0003L10.0001 15.8337ZM13.3334 10.0003C13.3334 11.8408 11.8405 13.3337 10.0001 13.3337C8.15964 13.3337 6.66677 11.8408 6.66677 10.0003C6.66677 8.15986 8.15964 6.66699 10.0001 6.66699C11.8405 6.66699 13.3334 8.15986 13.3334 10.0003Z"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        )}
                     </span>
                 </div>
                 <div className="input-wrapper">
-                    <span className="icon code-icon">
+                    <span className="icon email-icon">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="22"
@@ -203,48 +369,107 @@ const RegisterForm = () => {
                             />
                         </svg>
                     </span>
-                    <input className="input" type="text" placeholder="Почта" />
-                </div>
-                <div className="input-wrapper">
-                    <span className="icon phone-icon">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                        >
-                            <path
-                                d="M3.67275 7.27232C3.60644 9.02145 4.04912 11.9919 7.02881 14.9716C7.74767 15.6905 8.46599 16.2617 9.16675 16.7137M5.0764 4.52612C6.35327 3.24925 8.39049 3.42081 9.20121 4.87348L9.79613 5.9395C10.333 6.90153 10.1175 8.16354 9.2719 9.00914C9.2719 9.00914 9.2719 9.00914 9.2719 9.00915C9.27178 9.00926 8.24631 10.0349 10.1059 11.8945C11.9648 13.7534 12.9905 12.7293 12.9913 12.7285C12.9913 12.7285 12.9913 12.7285 12.9913 12.7285C13.8369 11.8829 15.0989 11.6674 16.0609 12.2043L17.1269 12.7992C18.5796 13.6099 18.7512 15.6471 17.4743 16.924C16.707 17.6913 15.7671 18.2883 14.7281 18.3277C13.9819 18.3559 13.0134 18.2916 11.9167 17.9772"
-                                stroke="#848484"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            />
-                        </svg>
-                    </span>
                     <input
                         className="input"
-                        type="tel"
-                        placeholder="Введите номер телефона"
+                        type="email"
+                        name="email"
+                        placeholder="Почта"
+                        value={formData.email}
+                        onChange={handleChange}
+                        disabled={isCodeSent || isSubmitting}
+                        style={{
+                            color:
+                                isCodeSent || isSubmitting
+                                    ? "rgba(255, 255, 255, 0.4)"
+                                    : "#fff",
+                        }}
                     />
                 </div>
+                {isCodeSent && !isVerified && (
+                    <div className="input-wrapper">
+                        <span className="icon code-icon"></span>
+                        <input
+                            className="input"
+                            type="text"
+                            name="verificationCode"
+                            maxLength={6}
+                            placeholder="Введите код с почты"
+                            value={formData.verificationCode}
+                            onChange={handleChange}
+                            disabled={!isCodeSent || isVerified}
+                            style={{
+                                color:
+                                    !isCodeSent || isVerified
+                                        ? "#4E4E4E"
+                                        : "#fff",
+                            }}
+                        />
+                    </div>
+                )}
             </div>
 
-            {/* <div className="role-selection">
-                <button className="role-button">Частное лицо</button>
-                <button className="role-button">Организация</button>
-            </div> */}
-
-            <div className="register-button-container">
-                <button className="register-button">Зарегистрироваться</button>
+            <div style={{ width: "100%" }} className="action-button-container">
+                <button
+                    className={`register-button ${
+                        (isCodeSent &&
+                            formData.verificationCode.length === 6) ||
+                        (!isCodeSent && isFormValid())
+                            ? "active"
+                            : ""
+                    }`}
+                    onClick={handleAction}
+                    disabled={
+                        isSubmitting ||
+                        (isCodeSent &&
+                            formData.verificationCode.length !== 6) ||
+                        (!isCodeSent && !isFormValid())
+                    }
+                    style={{ marginTop: "14px" }}
+                >
+                    {isCodeSent ? "Подтвердить код" : "Зарегистрироваться"}
+                </button>
             </div>
 
             <div className="terms-container">
-                <input type="checkbox" id="agree" />
+                <input
+                    type="checkbox"
+                    id="agree"
+                    checked={isTermsAccepted}
+                    onChange={handleTermsChange}
+                    disabled={isCodeSent || isSubmitting}
+                />
                 <label htmlFor="agree">
                     Я согласен с условиями пользования
                 </label>
             </div>
+            {/* Всплывающее уведомление */}
+
+            {showNotification && (
+                <div className="notification show">
+                    <p
+                        style={{
+                            color: "#fff",
+                            fontWeight: "bold",
+                            fontFamily: "Inter",
+                            fontSize: "16px",
+                            margin: "0",
+                        }}
+                    >
+                        Успешно
+                    </p>
+                    <p
+                        style={{
+                            color: "#C0C0C0",
+                            margin: "0",
+                            fontSize: "13px",
+                            marginTop: "5px",
+                        }}
+                    >
+                        Ссылка для подтверждения регистрации отправлена на
+                        почту.
+                    </p>
+                </div>
+            )}
         </>
     );
 };

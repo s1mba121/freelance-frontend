@@ -2,7 +2,41 @@ import React from "react";
 import "./StepTwo.css";
 import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ handleForgotPasswordClick }) => {
+    const [passwordVisible, setPasswordVisible] = React.useState(false);
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState("");
+
+    // Функция для переключения видимости пароля
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
+
+    const handleLogin = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:3000/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                }
+            );
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem("token", data.token); // Сохранение токена в localStorage
+                // Перенаправление или другие действия после успешного логина
+            } else {
+                setError(data.error || "An error occurred");
+            }
+        } catch (err) {
+            setError("An error occurred");
+        }
+    };
+
     return (
         <div className="input-container">
             <div className="input-wrapper">
@@ -32,7 +66,9 @@ const LoginForm = () => {
                 <input
                     className="input"
                     type="text"
-                    placeholder="Введите ваш логин"
+                    placeholder="Введите почту"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
             <div className="input-wrapper">
@@ -58,34 +94,79 @@ const LoginForm = () => {
                         />
                     </svg>
                 </span>
-                <input className="input" type="password" placeholder="Пароль" />
-                <span className="icon eye-icon">
+                <input
+                    className="input"
+                    type={passwordVisible ? "text" : "password"}
+                    placeholder="Пароль"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <span
+                    className="icon eye-icon"
+                    onClick={togglePasswordVisibility}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="20"
                         viewBox="0 0 20 20"
                         fill="none"
+                        className={`eye-svg ${
+                            passwordVisible ? "eye-open" : "eye-closed"
+                        }`}
                     >
-                        <path
-                            d="M7.50008 3.71602C8.25969 3.47441 9.0921 3.33301 10.0001 3.33301C13.485 3.33301 15.8568 5.41597 17.271 7.25328C17.9793 8.17345 18.3334 8.63353 18.3334 9.99967C18.3334 11.3658 17.9793 11.8259 17.271 12.7461C15.8568 14.5834 13.485 16.6663 10.0001 16.6663C6.51518 16.6663 4.14339 14.5834 2.72916 12.7461C2.02088 11.8259 1.66675 11.3658 1.66675 9.99967C1.66675 8.63353 2.02088 8.17345 2.72916 7.25328C3.13018 6.73229 3.60819 6.19155 4.16675 5.68415"
-                            stroke="#3F3F3F"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                        />
-                        <path
-                            d="M12.5 10C12.5 11.3807 11.3807 12.5 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5C11.3807 7.5 12.5 8.61929 12.5 10Z"
-                            stroke="#3F3F3F"
-                            stroke-width="1.5"
-                        />
+                        {passwordVisible ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="22"
+                                height="22"
+                                viewBox="0 0 22 22"
+                                fill="none"
+                            >
+                                <path
+                                    d="M7.50008 3.71602C8.25969 3.47441 9.0921 3.33301 10.0001 3.33301C13.485 3.33301 15.8568 5.41597 17.271 7.25328C17.9793 8.17345 18.3334 8.63353 18.3334 9.99967C18.3334 11.3658 17.9793 11.8259 17.271 12.7461C15.8568 14.5834 13.485 16.6663 10.0001 16.6663C6.51518 16.6663 4.14339 14.5834 2.72916 12.7461C2.02088 11.8259 1.66675 11.3658 1.66675 9.99967C1.66675 8.63353 2.02088 8.17345 2.72916 7.25328C3.13018 6.73229 3.60819 6.19155 4.16675 5.68415"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                />
+                                <path
+                                    d="M12.5 10C12.5 11.3807 11.3807 12.5 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5C11.3807 7.5 12.5 8.61929 12.5 10Z"
+                                    stroke="#3F3F3F"
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        ) : (
+                            <>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                >
+                                    {/* Иконка открытого глаза */}
+                                    <path
+                                        d="M2.01677 10.0003C2.01677 10.0003 4.6001 4.16699 10.0001 4.16699C12.692 4.16699 14.6413 5.39871 15.8068 6.70837L2.01677 10.0003ZM10.0001 15.8337C7.30823 15.8337 5.35889 14.602 4.19336 13.2923L17.9834 10.0003L10.0001 15.8337ZM13.3334 10.0003C13.3334 11.8408 11.8405 13.3337 10.0001 13.3337C8.15964 13.3337 6.66677 11.8408 6.66677 10.0003C6.66677 8.15986 8.15964 6.66699 10.0001 6.66699C11.8405 6.66699 13.3334 8.15986 13.3334 10.0003Z"
+                                        stroke="#3F3F3F"
+                                        strokeWidth="1.5"
+                                    />
+                                </svg>
+                            </>
+                        )}
                     </svg>
                 </span>
             </div>
+            {error && <p className="error-message">{error}</p>}
             <div className="register-button-container">
-                <button className="register-button">ВОЙТИ</button>
-                <Link to="/reset-password" className="reset-password-button">
+                <button onClick={handleLogin} className="register-button">
+                    ВОЙТИ
+                </button>
+                <button
+                    onClick={handleForgotPasswordClick}
+                    className="reset-password-button"
+                >
                     ЗАБЫЛИ ПАРОЛЬ?
-                </Link>
+                </button>
             </div>
         </div>
     );

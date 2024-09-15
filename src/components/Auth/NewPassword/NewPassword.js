@@ -1,36 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Auth.css";
 import Footer from "../../Footer/Footer";
-import "./ResetPassword.css";
-import ReCAPTCHA from "react-google-recaptcha";
+import "./NewPassword.css";
+import { useParams, useNavigate } from "react-router-dom"; // Для получения параметров из ссылки
 
-const ResetPassword = () => {
-    const [email, setEmail] = useState("");
-    const [captchaValue, setCaptchaValue] = useState(null);
+const NewPassword = () => {
+    const { email, token } = useParams(); // Получение email и token из URL
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [isButtonActive, setIsButtonActive] = useState(false);
     const [message, setMessage] = useState(""); // Сообщение для пользователя
     const [showNotification, setShowNotification] = useState(false);
 
-    // Обработчик изменения ввода email
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        checkIfButtonCanBeActive(e.target.value, captchaValue);
-    };
+    const navigate = useNavigate(); // Инициализация navigate
 
-    // Обработчик изменения капчи
-    const handleCaptchaChange = (value) => {
-        setCaptchaValue(value);
-        checkIfButtonCanBeActive(email, value);
-    };
-
-    // Проверка активации кнопки
-    const checkIfButtonCanBeActive = (emailValue, captchaValue) => {
-        if (emailValue && captchaValue) {
-            setIsButtonActive(true);
-        } else {
-            setIsButtonActive(false);
-        }
-    };
+    // Активация кнопки, когда пароли совпадают
+    useEffect(() => {
+        setIsButtonActive(password && password === confirmPassword);
+    }, [password, confirmPassword]);
 
     // Обработчик отправки запроса на восстановление пароля
     const handleSubmit = async () => {
@@ -38,13 +25,17 @@ const ResetPassword = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:3000/api/auth/forgot-password",
+                "http://localhost:3000/api/auth/reset-password",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ email }),
+                    body: JSON.stringify({
+                        email,
+                        newPassword: password,
+                        token,
+                    }), // Отправляем и email, и токен
                 }
             );
 
@@ -54,8 +45,10 @@ const ResetPassword = () => {
                 setShowNotification(true);
                 setTimeout(() => {
                     setShowNotification(false); // Скрываем уведомление через 3 секунды
+                    navigate("/auth");
                 }, 3000);
-                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
             } else {
                 setMessage(data.error || "Произошла ошибка. Попробуйте позже.");
             }
@@ -68,63 +61,53 @@ const ResetPassword = () => {
         <>
             <div className="auth-container">
                 <div className="reset-password-container">
-                    <h1 className="reset-password-title">
-                        ВОССТАНОВЛЕНИЕ ПАРОЛЯ
-                    </h1>
-                    <div style={{ width: "100%" }} className="input-wrapper">
-                        <span className="icon login-icon">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="22"
-                                height="22"
-                                viewBox="0 0 22 22"
-                                fill="none"
-                            >
-                                <circle
-                                    cx="10.9999"
-                                    cy="5.49967"
-                                    r="3.66667"
-                                    stroke="#848484"
-                                    strokeWidth="1.5"
-                                />
-                                <path
-                                    d="M13.7499 18.8975C12.9164 19.1237 11.984 19.2503 10.9999 19.2503C7.45609 19.2503 4.58325 17.6087 4.58325 15.5837C4.58325 13.5586 7.45609 11.917 10.9999 11.917C14.5437 11.917 17.4166 13.5586 17.4166 15.5837C17.4166 15.9002 17.3464 16.2073 17.2144 16.5003"
-                                    stroke="#848484"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                />
-                            </svg>
-                        </span>
+                    <h1 className="reset-password-title">ИЗМЕНЕНИЕ ПАРОЛЯ</h1>
+                    <div
+                        style={{ width: "100%", marginBottom: "14px" }}
+                        className="input-wrapper"
+                    >
+                        <span className="icon login-icon">{/* Иконка */}</span>
                         <input
                             className="input"
                             type="email"
-                            placeholder="Введите вашу почту"
-                            value={email}
-                            onChange={handleEmailChange}
+                            value={email} // Email получен из URL
+                            disabled={true} // Поле заблокировано для изменения
                         />
                     </div>
-                    <div className="captcha-container">
-                        <ReCAPTCHA
-                            sitekey="6LcQOkMqAAAAAJEc_gcpOyan6OPOnbZQCZNaOvvR"
-                            onChange={handleCaptchaChange}
-                            size="large"
-                            theme="dark"
+                    <div
+                        style={{ width: "100%", marginBottom: "14px" }}
+                        className="input-wrapper"
+                    >
+                        <span className="icon login-icon">{/* Иконка */}</span>
+                        <input
+                            className="input"
+                            type="password"
+                            placeholder="Новый пароль"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div
+                        style={{ width: "100%", marginBottom: "14px" }}
+                        className="input-wrapper"
+                    >
+                        <span className="icon login-icon">{/* Иконка */}</span>
+                        <input
+                            className="input"
+                            type="password"
+                            placeholder="Повторите пароль"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
                     <button
                         className={`register-button ${
                             isButtonActive ? "active" : ""
                         }`}
-                        disabled={!isButtonActive} // Делаем кнопку неактивной, если условия не выполнены
+                        disabled={!isButtonActive} // Делаем кнопку неактивной, если пароли не совпадают
                         onClick={handleSubmit}
                     >
-                        ОТПРАВИТЬ ПИСЬМО
-                    </button>
-                    <button
-                        style={{ marginBottom: "0", width: "100%" }}
-                        className="reset-password-button"
-                    >
-                        ТРУДНОСТИ С ВОССТАНОВЛЕНИЕМ
+                        СОХРАНИТЬ
                     </button>
                 </div>
                 <div
@@ -239,9 +222,9 @@ const ResetPassword = () => {
                             marginTop: "5px",
                         }}
                     >
-                        Ссылка для восстановления пароля
+                        Пароль успешно изменен.
                         <br />
-                        отправлена на почту.
+                        Перенаправление на страницу авторизации.
                     </p>
                 </div>
             )}
@@ -249,4 +232,4 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+export default NewPassword;
