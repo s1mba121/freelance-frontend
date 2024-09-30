@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./MainPage.css";
-import Footer from "../../components/Footer/Footer";
+// import Footer from "../../components/Footer/Footer";
 import Carousel from "../../components/Carousel/Carousel";
+import { Link } from "react-router-dom";
 
 const MainPage = () => {
     const [currentSubBlock, setCurrentSubBlock] = useState(0);
@@ -20,6 +21,16 @@ const MainPage = () => {
 
             const blockHeight = viewportHeight * 0.75;
             const extraScroll = blockHeight * 0.25;
+
+            document
+                .getElementById("smile-img")
+                .addEventListener("click", function () {
+                    const img = this;
+                    img.src = "./14015813aff411b06ac3a6b2822c2fef.gif"; // Замена на гифку
+                    setTimeout(() => {
+                        img.src = "./face-blowing-a-kiss.png"; // Возврат статичного изображения
+                    }, 2990); // Укажите длительность проигрывания гифки (например, 3 секунды)
+                });
 
             if (relativeScroll >= 0) {
                 const subBlockIndex = Math.floor(
@@ -427,8 +438,239 @@ const MainPage = () => {
                         что посмотреть, на основе ваших предпочтений
                     </h2>
                     <div className="content-block-4-blocks">
-                        {/* <div className="content-block-4-blur"></div> */}
+                        <div className="content-block-4-blur"></div>
                         <Carousel />
+                        <h1 className="content-block-4-blocks-subtitle">
+                            — Биржа, где дизайнеры являются основной частью
+                        </h1>
+                    </div>
+                </div>
+                {/* <div className="content-block-5">
+                    <h1 className="content-block-5-title">
+                        Ищите позитивные стороны в нас,
+                        <br />и мы найдем их в вас
+                    </h1>
+                    <p className="content-block-5-subtitle">
+                        Множество функционалов, полная свобода,
+                        <br />
+                        любимые занятия и курсы
+                    </p>
+                    <div className="content-block-5-blocks">
+                        <div class="block large">Игровой маркет</div>
+                        <div class="block small">Обширный профиль</div>
+                        <div class="block small">Никаких привилегий</div>
+                        <div class="block large-wide">
+                            Полное распоряжение своим временем
+                        </div>
+                        <div class="block medium">Наработка портфолио</div>
+                        <div class="block small">Приложение</div>
+                        <div class="block small">Бесплатные курсы</div>
+                    </div>
+                </div> */}
+                <div className="content-block-6">
+                    <h1 className="content-block-6-title">
+                        Мы изменили все старые
+                        <br />
+                        правила бирж, и добавили новые
+                    </h1>
+                    <p className="content-block-6-subtitle">
+                        Каждый, кто уже имел опыт работы с другими биржами,
+                        сможет
+                        <br />
+                        быстро приспособиться к новым правилам биржы Dwork
+                    </p>
+                    <div className="content-block-6-blocks">
+                        <div
+                            style={{
+                                background: "url(./Group2087325363.png",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
+                            }}
+                            className="content-block-6-block"
+                        >
+                            <div className="content-block-6-block-text">
+                                <h1>
+                                    Каждому -<br />
+                                    индивидуальный аккаунт
+                                </h1>
+                                <p>
+                                    Создайте профиль как исполнитель, чтобы
+                                    работать над задачами,
+                                    <br />и как заказчик, чтобы размещать заказы
+                                    на выполнение задач.
+                                    <br />
+                                    Это удобно и не требует постоянной
+                                    авторизации.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            style={{
+                                background: "url(./Group2087325362.png",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
+                            }}
+                            className="content-block-6-block"
+                        >
+                            <div className="content-block-6-block-text">
+                                <h1>
+                                    Удобно отслеживать
+                                    <br />
+                                    за своими средствами
+                                </h1>
+                                <p>
+                                    Для того чтобы следить за своими средствами
+                                    на бирже, вы легко
+                                    <br />и быстро сможете проверить в<br />
+                                    своём профиле. Кроме того, в любое время вы
+                                    сможете запросить чек для налоговой.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="content-block-7">
+                    <h1 className="content-block-7-title">
+                        Есть вопросы по функционалу
+                        <br />и работы на бирже?
+                    </h1>
+                    <p className="content-block-7-subtitle">
+                        Вы всегда можете посмотреть всю информацию о правилах и
+                        <br />
+                        требованиях для исполнителей и заказчиков в нашей базе
+                        знаний
+                    </p>
+                    <div className="content-block-7-block"></div>
+                    <Link to="/wiki" className="content-block-7-button">
+                        База знаний
+                    </Link>
+                </div>
+                <div className="content-block-8">
+                    <h1 className="content-block-8-title">
+                        Пока мы подготавливаем биржу к запуску,
+                        <br />
+                        вы можете авторизоваться
+                    </h1>
+                    <p className="content-block-8-subtitle">
+                        И получать эксклюзивные бонусы, доступные только новым
+                        <br />
+                        пользователям. Не забывайте следить за нашими
+                        социальными
+                        <br />
+                        сетями.
+                    </p>
+                    <div className="content-block-8-block">
+                        <div className="content-block-8-smile">
+                            <img
+                                // src="./14015813aff411b06ac3a6b2822c2fef.gif"
+                                src="./face-blowing-a-kiss.png"
+                                alt="smile"
+                                className="content-block-8-smile-img"
+                                id="smile-img"
+                            />
+                            <div className="content-block-8-undersmile"></div>
+                            <p>А пока вы можете нам послать смайлик</p>
+                        </div>
+                        <footer className="footer">
+                            <div className="footer-container">
+                                <div className="footer-block-text">
+                                    <h1 className="footer-text-title">Dwork</h1>
+                                    <p style={{ marginBottom: "8.78px" }}>
+                                        ООО «Dwork Studio»
+                                    </p>
+                                    <p style={{ marginBottom: "8.78px" }}>
+                                        Вид деятельности код: 63.11
+                                    </p>
+                                    <p>
+                                        Dwork осуществляет деятельность в
+                                        области
+                                        <br />
+                                        информационных технологий
+                                    </p>
+                                </div>
+                                <div className="footer-block-buttons">
+                                    <div className="footer-block">
+                                        <h1 className="footer-block-title">
+                                            Важная информация
+                                        </h1>
+                                        <a className="footer-block-button">
+                                            Правила оплаты
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Условия использования ЗК
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Условия использования ИС
+                                        </a>
+                                    </div>
+                                    <div className="footer-block">
+                                        <h1 className="footer-block-title">
+                                            Новости
+                                        </h1>
+                                        <a className="footer-block-button">
+                                            Блог
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Telegram
+                                        </a>
+                                        <a className="footer-block-button">
+                                            YouTube
+                                        </a>
+                                    </div>
+                                    <div className="footer-block">
+                                        <h1 className="footer-block-title">
+                                            помощь
+                                        </h1>
+                                        <a className="footer-block-button">
+                                            Правила
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Центр помощи
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Вики
+                                        </a>
+                                    </div>
+                                    <div className="footer-block">
+                                        <h1 className="footer-block-title">
+                                            Вакансии
+                                        </h1>
+                                        <a className="footer-block-button">
+                                            Заявка на модерацию
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Команда разработчиков
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Для сотрдуничества
+                                        </a>
+                                    </div>
+                                    <div className="footer-block">
+                                        <h1 className="footer-block-title">
+                                            Поддержка
+                                        </h1>
+                                        <a className="footer-block-button">
+                                            Чат с оператором
+                                        </a>
+                                        <a className="footer-block-button">
+                                            Отправить тикет
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="footer-line"></div>
+                            <p className="footer-text">
+                                Информация, опубликованная на данном сайте,
+                                предназначена для любой аудитории,
+                                <br />
+                                если иное не указано дополнительно в отношении
+                                отдельных материалов.
+                            </p>
+                            <div className="footer-krugs"></div>
+                            <div className="footer-krugs-2"></div>
+                        </footer>
                     </div>
                 </div>
             </div>

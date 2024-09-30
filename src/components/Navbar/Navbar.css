@@ -70,7 +70,7 @@
 }
 
 .menu-item:hover {
-    scale: 1.02;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .menu-item.active:hover {
