@@ -8,22 +8,19 @@ const ResetPassword = () => {
     const [email, setEmail] = useState("");
     const [captchaValue, setCaptchaValue] = useState(null);
     const [isButtonActive, setIsButtonActive] = useState(false);
-    const [message, setMessage] = useState(""); // Сообщение для пользователя
+    const [message, setMessage] = useState("");
     const [showNotification, setShowNotification] = useState(false);
 
-    // Обработчик изменения ввода email
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
         checkIfButtonCanBeActive(e.target.value, captchaValue);
     };
 
-    // Обработчик изменения капчи
     const handleCaptchaChange = (value) => {
         setCaptchaValue(value);
         checkIfButtonCanBeActive(email, value);
     };
 
-    // Проверка активации кнопки
     const checkIfButtonCanBeActive = (emailValue, captchaValue) => {
         if (emailValue && captchaValue) {
             setIsButtonActive(true);
@@ -32,7 +29,6 @@ const ResetPassword = () => {
         }
     };
 
-    // Обработчик отправки запроса на восстановление пароля
     const handleSubmit = async () => {
         if (!isButtonActive) return;
 
@@ -53,7 +49,7 @@ const ResetPassword = () => {
             if (response.ok) {
                 setShowNotification(true);
                 setTimeout(() => {
-                    setShowNotification(false); // Скрываем уведомление через 3 секунды
+                    setShowNotification(false);
                 }, 3000);
                 setEmail("");
             } else {
@@ -115,7 +111,7 @@ const ResetPassword = () => {
                         className={`register-button ${
                             isButtonActive ? "active" : ""
                         }`}
-                        disabled={!isButtonActive} // Делаем кнопку неактивной, если условия не выполнены
+                        disabled={!isButtonActive}
                         onClick={handleSubmit}
                     >
                         ОТПРАВИТЬ ПИСЬМО
@@ -216,7 +212,6 @@ const ResetPassword = () => {
                     <div className="footer-krugs-2"></div>
                 </div>
             </div>
-            {/* Всплывающее уведомление */}
 
             {showNotification && (
                 <div className="notification show">

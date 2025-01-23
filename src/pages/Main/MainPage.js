@@ -26,10 +26,10 @@ const MainPage = () => {
                 .getElementById("smile-img")
                 .addEventListener("click", function () {
                     const img = this;
-                    img.src = "./14015813aff411b06ac3a6b2822c2fef.gif"; // Замена на гифку
+                    img.src = "./14015813aff411b06ac3a6b2822c2fef.gif";
                     setTimeout(() => {
-                        img.src = "./face-blowing-a-kiss.png"; // Возврат статичного изображения
-                    }, 2990); // Укажите длительность проигрывания гифки (например, 3 секунды)
+                        img.src = "./face-blowing-a-kiss.png";
+                    }, 2990);
                 });
 
             if (relativeScroll >= 0) {
@@ -39,7 +39,6 @@ const MainPage = () => {
                 setCurrentSubBlock(subBlockIndex);
 
                 if (subBlockIndex < 3) {
-                    // Изменено с 6 на 5
                     const subBlockRelativeScroll =
                         relativeScroll -
                         subBlockIndex * (blockHeight + extraScroll);

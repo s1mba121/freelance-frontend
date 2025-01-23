@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import "../../../pages/Auth/Auth.css";
 import Footer from "../../Footer/Footer";
 import "./NewPassword.css";
-import { useParams, useNavigate } from "react-router-dom"; // Для получения параметров из ссылки
+import { useParams, useNavigate } from "react-router-dom";
 
 const NewPassword = () => {
-    const { email, token } = useParams(); // Получение email и token из URL
+    const { email, token } = useParams();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isButtonActive, setIsButtonActive] = useState(false);
-    const [message, setMessage] = useState(""); // Сообщение для пользователя
+    const [message, setMessage] = useState("");
     const [showNotification, setShowNotification] = useState(false);
     const [showPassword1, setShowPassword1] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
@@ -17,14 +17,12 @@ const NewPassword = () => {
     const togglePassword1 = () => setShowPassword1(!showPassword1);
     const togglePassword2 = () => setShowPassword2(!showPassword2);
 
-    const navigate = useNavigate(); // Инициализация navigate
+    const navigate = useNavigate();
 
-    // Активация кнопки, когда пароли совпадают
     useEffect(() => {
         setIsButtonActive(password && password === confirmPassword);
     }, [password, confirmPassword]);
 
-    // Обработчик отправки запроса на восстановление пароля
     const handleSubmit = async () => {
         if (!isButtonActive) return;
 
@@ -40,7 +38,7 @@ const NewPassword = () => {
                         email,
                         newPassword: password,
                         token,
-                    }), // Отправляем и email, и токен
+                    }),
                 }
             );
 
@@ -49,7 +47,7 @@ const NewPassword = () => {
             if (response.ok) {
                 setShowNotification(true);
                 setTimeout(() => {
-                    setShowNotification(false); // Скрываем уведомление через 3 секунды
+                    setShowNotification(false);
                     navigate("/auth");
                 }, 3000);
                 setPassword("");
@@ -252,7 +250,7 @@ const NewPassword = () => {
                         className={`register-button ${
                             isButtonActive ? "active" : ""
                         }`}
-                        disabled={!isButtonActive} // Делаем кнопку неактивной, если пароли не совпадают
+                        disabled={!isButtonActive}
                         onClick={handleSubmit}
                     >
                         СОХРАНИТЬ
@@ -347,7 +345,6 @@ const NewPassword = () => {
                     <div className="footer-krugs-2"></div>
                 </div>
             </div>
-            {/* Всплывающее уведомление */}
 
             {showNotification && (
                 <div className="notification show">

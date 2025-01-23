@@ -2,7 +2,7 @@ import React from "react";
 
 const StepOne = ({ handleNextStep }) => {
     const handleRoleSelection = (role) => {
-        handleNextStep(role); // Передаем выбранную роль в `handleNextStep`
+        handleNextStep(role);
     };
 
     return (
@@ -14,7 +14,7 @@ const StepOne = ({ handleNextStep }) => {
                     <div className="auth-option-overlay"></div>
                     <button
                         className="auth-option-button-1"
-                        onClick={() => handleRoleSelection("customer")} // Роль "заказчик"
+                        onClick={() => handleRoleSelection("customer")}
                     >
                         <h1>КАК ЗАКАЗЧИК</h1>
                     </button>
@@ -24,7 +24,7 @@ const StepOne = ({ handleNextStep }) => {
                     <div className="auth-option-overlay"></div>
                     <button
                         className="auth-option-button-2"
-                        onClick={() => handleRoleSelection("freelancer")} // Роль "исполнитель"
+                        onClick={() => handleRoleSelection("freelancer")}
                     >
                         <h1>КАК ИСПОЛНИТЕЛЬ</h1>
                     </button>

@@ -68,7 +68,7 @@ const PublicProfile = () => {
                             style={{
                                 backgroundColor:
                                     profile?.profileColor || "#ccc",
-                            }} // Установите цвет по умолчанию
+                            }}
                         >
                             {profile?.username
                                 ? profile.username.charAt(0)

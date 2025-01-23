@@ -76,7 +76,6 @@ const CreateProject = () => {
                                 <option value="design">Design</option>
                                 <option value="development">Development</option>
                                 <option value="marketing">Marketing</option>
-                                {/* Add more categories as needed */}
                             </select>
                         </div>
                         <button

@@ -29,10 +29,8 @@ const Navbar = () => {
 
     const handleProfileClick = () => {
         if (user) {
-            // Если пользователь залогинен, перенаправляем на /status
             navigate("/status");
         } else {
-            // Если пользователь не залогинен, перенаправляем на /auth
             navigate("/auth");
         }
     };

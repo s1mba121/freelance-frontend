@@ -4,16 +4,16 @@ import RegisterForm from "../Forms/RegisterForm";
 import LoginForm from "../Forms/LoginForm";
 
 const StepTwo = ({ role, handlePrevStep, handleForgotPasswordClick }) => {
-    const [isLogin, setIsLogin] = useState(false); // По умолчанию показываем регистрацию
-    const [isTransitioning, setIsTransitioning] = useState(false); // Состояние для анимации
+    const [isLogin, setIsLogin] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     const toggleForm = (formType) => {
         if (isLogin !== formType) {
-            setIsTransitioning(true); // Запускаем анимацию
+            setIsTransitioning(true);
             setTimeout(() => {
-                setIsLogin(formType); // Меняем форму после задержки
-                setIsTransitioning(false); // Завершаем анимацию
-            }, 300); // 300мс задержка для анимации
+                setIsLogin(formType);
+                setIsTransitioning(false);
+            }, 300);
         }
     };
 

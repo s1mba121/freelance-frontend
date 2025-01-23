@@ -9,13 +9,12 @@ const App = () => {
     useEffect(() => {
         if (!isLoading) {
             setShowSwipe(true);
-            setTimeout(() => setShowSwipe(false), 300); // Длительность анимации
+            setTimeout(() => setShowSwipe(false), 300);
         }
     }, [isLoading]);
 
     return (
         <div className="App">
-            {/* Отображаем прелоадер только на главной странице */}
             <AppRoutes setIsLoading={setIsLoading} />
             {isLoading ? (
                 <Preloader onAnimationEnd={() => setIsLoading(false)} />

@@ -25,13 +25,13 @@ const Preloader = ({ onAnimationEnd }) => {
             const timer = setTimeout(() => {
                 setCurrentGreeting(greetings[currentIndex]);
                 setCurrentIndex(currentIndex + 1);
-            }, 200); // Меняем приветствие каждые 200мс
+            }, 200);
             return () => clearTimeout(timer);
         } else {
             setTimeout(() => {
                 setIsVisible(false);
-                setTimeout(onAnimationEnd, 300); // Анимация скрытия прелоадера
-            }, 200); // Время до скрытия прелоадера
+                setTimeout(onAnimationEnd, 300);
+            }, 200);
         }
     }, [currentIndex, greetings, onAnimationEnd]);
 

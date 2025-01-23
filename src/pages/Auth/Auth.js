@@ -8,12 +8,12 @@ import StepTwo from "../../components/Auth/Steps/StepTwo";
 const Auth = () => {
     const [step, setStep] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [role, setRole] = useState(""); // Сохраняем выбранную роль
-    const [isFormVisible, setIsFormVisible] = useState(true); // Управляет видимостью формы
+    const [role, setRole] = useState("");
+    const [isFormVisible, setIsFormVisible] = useState(true);
     const navigate = useNavigate();
 
     const handleNextStep = (selectedRole) => {
-        setRole(selectedRole); // Сохраняем выбранную роль
+        setRole(selectedRole);
         setIsTransitioning(true);
         setTimeout(() => {
             setStep(step + 1);
@@ -30,10 +30,10 @@ const Auth = () => {
     };
 
     const handleForgotPasswordClick = () => {
-        setIsFormVisible(false); // Начать скрытие формы
+        setIsFormVisible(false);
         setTimeout(() => {
-            navigate("/reset-password"); // Перенаправление после скрытия формы
-        }, 500); // Задержка должна совпадать с длительностью анимации
+            navigate("/reset-password");
+        }, 500);
     };
 
     return (

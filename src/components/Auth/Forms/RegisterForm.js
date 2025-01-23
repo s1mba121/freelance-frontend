@@ -22,7 +22,7 @@ const RegisterForm = ({ role }) => {
 
     const [showNotification, setShowNotification] = useState(false);
 
-    const navigate = useNavigate(); // Инициализация navigate
+    const navigate = useNavigate();
 
     const togglePassword1 = () => setShowPassword1(!showPassword1);
     const togglePassword2 = () => setShowPassword2(!showPassword2);
@@ -41,7 +41,6 @@ const RegisterForm = ({ role }) => {
     };
 
     const validateEmail = (email) => {
-        // Simple email validation regex
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
@@ -69,10 +68,9 @@ const RegisterForm = ({ role }) => {
                     role: role,
                 });
                 setIsCodeSent(true);
-                // Показываем уведомление после успешной отправки
                 setShowNotification(true);
                 setTimeout(() => {
-                    setShowNotification(false); // Скрываем уведомление через 3 секунды
+                    setShowNotification(false);
                 }, 3000);
             } catch (error) {
                 console.error("Error registering:", error);
@@ -88,7 +86,6 @@ const RegisterForm = ({ role }) => {
                     }
                 );
                 setIsVerified(true);
-                // Перенаправление после успешной проверки
                 navigate("/status");
             } catch (error) {
                 console.error("Verification error:", error);
@@ -442,7 +439,6 @@ const RegisterForm = ({ role }) => {
                     Я согласен с условиями пользования
                 </label>
             </div>
-            {/* Всплывающее уведомление */}
 
             {showNotification && (
                 <div className="notification show">

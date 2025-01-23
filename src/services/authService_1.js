@@ -2,16 +2,13 @@
 
 import axios from "axios";
 
-// Базовый URL вашего API
 const API_URL = "http://localhost:3000/api/auth";
 
-// Функция для регистрации пользователя
 export const register = async (userData) => {
     try {
         const response = await axios.post(`${API_URL}/register`, userData);
         return response.data;
     } catch (error) {
-        // Обработка ошибок
         console.error(
             "Registration error:",
             error.response?.data || error.message
@@ -20,7 +17,6 @@ export const register = async (userData) => {
     }
 };
 
-// Функция для верификации email
 export const verifyEmail = async (verificationData) => {
     try {
         const response = await axios.post(
@@ -29,7 +25,6 @@ export const verifyEmail = async (verificationData) => {
         );
         return response.data;
     } catch (error) {
-        // Обработка ошибок
         console.error(
             "Email verification error:",
             error.response?.data || error.message
@@ -53,22 +48,19 @@ export const sendVerificationCode = async (login) => {
         }
 
         const data = await response.json();
-        return data; // Возвращаем данные в случае успешной отправки
+        return data;
     } catch (error) {
         console.error("Ошибка в sendVerificationCode:", error);
-        throw error; // Пробрасываем ошибку для обработки в компоненте
+        throw error;
     }
 };
 
-// Функция для логина
 export const login = async (loginData) => {
     try {
         const response = await axios.post(`${API_URL}/login`, loginData);
-        // Сохранение токена в localStorage или в состоянии приложения
         localStorage.setItem("token", response.data.token);
         return response.data;
     } catch (error) {
-        // Обработка ошибок
         console.error("Login error:", error.response?.data || error.message);
         throw error;
     }

@@ -55,7 +55,6 @@ const Filters = ({
                         />
                         Python
                     </label>
-                    {/* Add more skills as needed */}
                 </div>
             </div>
         </div>

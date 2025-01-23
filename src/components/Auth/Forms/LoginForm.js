@@ -7,7 +7,6 @@ const LoginForm = ({ handleForgotPasswordClick }) => {
     const [password, setPassword] = React.useState("");
     const [error, setError] = React.useState("");
 
-    // Функция для переключения видимости пароля
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
@@ -26,8 +25,7 @@ const LoginForm = ({ handleForgotPasswordClick }) => {
             );
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem("token", data.token); // Сохранение токена в localStorage
-                // Перенаправление или другие действия после успешного логина
+                localStorage.setItem("token", data.token);
             } else {
                 setError(data.error || "An error occurred");
             }
